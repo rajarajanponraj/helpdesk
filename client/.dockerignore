@@ -1,0 +1,31 @@
+# Ignore node_modules and dependencies
+node_modules/
+# Ignore build outputs
+dist/
+build/
+out/
+# Ignore environment files
+.env
+.env.*
+# Ignore logs and temporary files
+*.log
+*.tmp
+# Ignore version control files
+.git/
+.gitignore
+# Ignore IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+# Ignore Docker-related files
+Dockerfile*
+docker-compose*
+# Ignore specific project files
+.next/
+.turbo/
+public/
+locales/
+# Allow necessary files
+!public/favicon.ico
+!locales/en/peppermint.json

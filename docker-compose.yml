@@ -1,0 +1,80 @@
+
+services:
+  postgres:
+    image: "postgres:16"
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=pepppermint
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=peppermint
+    networks:
+      - app_networks
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data_local_dev:/var/lib/postgresql/data
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      target: api-dev
+    develop:
+      watch:
+        - path: ./api/src
+          action: sync
+          target: /app/src
+        - path: ./api/package.json
+          action: rebuild
+    volumes:
+      - ../api:/workspace
+    networks:
+      - app_networks
+    ports:
+      - "5003:5003"
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_USER=pepppermint
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=peppermint
+
+  client:
+    container_name: web
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      target: client-dev
+    develop:
+      watch:
+        - path: ./client
+          action: sync
+          target: /app/src
+        - path: ./client/package.json
+          action: rebuild
+    networks:
+      - app_networks
+    volumes:
+      - ../client:/workspace
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    depends_on:
+      - api
+      - mailhog
+
+volumes:
+  postgres_data_local_dev:
+
+networks:
+  app_networks:
+    
+

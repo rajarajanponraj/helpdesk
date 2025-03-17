@@ -4,7 +4,7 @@ services:
     image: "postgres:16"
     restart: unless-stopped
     environment:
-      - POSTGRES_USER=pepppermint
+      - POSTGRES_USER=peppermint
       - POSTGRES_PASSWORD=12345
       - POSTGRES_DB=peppermint
     networks:
@@ -19,6 +19,8 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
+    networks:
+      - app_networks
 
   api:
     container_name: api
@@ -30,11 +32,12 @@ services:
       watch:
         - path: ./api/src
           action: sync
-          target: /app/src
+          target: /app
         - path: ./api/package.json
           action: rebuild
+    command: npm run dev
     volumes:
-      - ../api:/workspace
+      - ./api:/app
     networks:
       - app_networks
     ports:
@@ -43,7 +46,7 @@ services:
     depends_on:
       - postgres
     environment:
-      - POSTGRES_USER=pepppermint
+      - POSTGRES_USER=peppermint
       - POSTGRES_PASSWORD=12345
       - POSTGRES_DB=peppermint
 
@@ -57,13 +60,14 @@ services:
       watch:
         - path: ./client
           action: sync
-          target: /app/src
+          target: /app
         - path: ./client/package.json
           action: rebuild
+    command: npm run dev
     networks:
       - app_networks
     volumes:
-      - ../client:/workspace
+      - ./client:/app
     ports:
       - "3000:3000"
     restart: unless-stopped

@@ -472,9 +472,9 @@ export default function NewLayout({ children }: any) {
             <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 items-center">
               <div className="sm:flex hidden w-full justify-start items-center space-x-6">
                 {user.isAdmin && (
-                  <Link href="https://github.com/Peppermint-Lab/peppermint/releases">
+                  <Link href="">
                     <span className="inline-flex items-center rounded-md bg-green-700/10 px-3 py-2 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-500/20">
-                      Version {process.env.NEXT_PUBLIC_CLIENT_VERSION}
+                      Version 1
                     </span>
                   </Link>
                 )}

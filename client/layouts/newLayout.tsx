@@ -182,9 +182,9 @@ export default function NewLayout({ children }: any) {
                   {/* Sidebar component, swap this element with another sidebar if you like */}
                   <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background px-6 pb-4">
                     <div className="flex align-middle flex-row h-14 items-center border-b-[1px]">
-                      <Link href="https://peppermint.sh">
+                      <Link href="">
                         <span className="text-3xl ml-2 text-green-500  hover:text-green-600 font-bold ">
-                          Peppermint
+                          Helpdesk
                         </span>
                       </Link>
                     </div>
@@ -309,9 +309,9 @@ export default function NewLayout({ children }: any) {
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background pb-4">
             <div className="flex align-middle flex-row h-14 items-center border-b-[1px] px-6">
-              <Link href="https://peppermint.sh" target="_blank">
+              <Link href="" target="_blank">
                 <span className="text-3xl ml-2 text-green-500 hover:text-green-600 font-bold">
-                  Peppermint
+                  Helpdesk
                 </span>
               </Link>
             </div>
@@ -474,7 +474,7 @@ export default function NewLayout({ children }: any) {
                 {user.isAdmin && (
                   <Link href="">
                     <span className="inline-flex items-center rounded-md bg-green-700/10 px-3 py-2 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-500/20">
-                      Version 1
+                      Version {process.env.NEXT_PUBLIC_CLIENT_VERSION}
                     </span>
                   </Link>
                 )}
@@ -503,7 +503,7 @@ export default function NewLayout({ children }: any) {
 
                 {user.isAdmin && (
                   <Link
-                    href="https://github.com/Peppermint-Lab/peppermint/discussions"
+                    href=""
                     target="_blank"
                     className="hover:cursor-pointer"
                   >

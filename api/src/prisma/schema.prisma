@@ -410,6 +410,178 @@ model emailTemplate {
   type Template
 }
 
+model Seller {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  contact     String?
+  email       String?  @unique
+  address     String?
+  stocks      Stock[]  
+  purchases Purchase[]
+}
+
+model Stock {
+  id          String   @id @default(uuid())
+  name        String
+  category    String   // e.g., Computer, Router, Monitor
+  description String?
+  quantity    Int      @default(0)  // Total available quantity
+  unitPrice   Float
+  sellerId    String?
+  seller      Seller?  @relation(fields: [sellerId], references: [id])
+  purchases   Purchase[]
+  movements   StockMovement[] // Track stock movements
+  labStocks LabStock[]
+  serviceRegisters  ServiceRegister[]
+  stockTransfers StockTransfer[]
+  stockScraps StockScrap[]
+}
+
+model StockMovement {
+  id          String  @id @default(uuid())
+  stockId     String
+  stock       Stock   @relation(fields: [stockId], references: [id])
+
+  fromLabId   String?  
+  fromLab     Lab?    @relation(fields: [fromLabId], references: [id], name: "StockMovementFromLab")
+
+  toLabId     String  
+  toLab       Lab     @relation(fields: [toLabId], references: [id], name: "StockMovementToLab")
+
+  quantity    Int
+  movedAt     DateTime @default(now())
+}
+
+
+
+
+
+model Purchase {
+  id           String   @id @default(uuid())
+  stockId      String
+  stock        Stock    @relation(fields: [stockId], references: [id])
+  sellerId     String?
+  seller       Seller?  @relation(fields: [sellerId], references: [id])
+  
+  quantity     Int
+  price        Float
+  purchaseDate DateTime @default(now())
+
+  proofType    String  // e.g., Invoice, Receipt, Warranty
+  proofFile    String  // File path or URL to the document
+}
+
+
+model LabStock {
+  id          String @id @default(uuid())
+  stockId     String
+  stock       Stock  @relation(fields: [stockId], references: [id])
+  labId       String
+  lab         Lab    @relation(fields: [labId], references: [id])
+  quantity    Int
+  allocatedAt DateTime @default(now())
+  
+  // Component Tracking
+  serialNumber String?  // Optional, for individual tracking
+  condition    String   // e.g., New, Good, Needs Repair
+}
+
+model Vendor {
+  id          String  @id @default(uuid())
+  name        String  // Vendor Name
+  contact     String? // Contact Info
+  address     String? 
+  services    ServiceRegister[] // Services handled by the vendor
+  serviceRecords ServiceRecord[] // Repair logs by the vendor
+}
+
+model StockScrap {
+  id          String @id @default(uuid())
+  stockId     String
+  stock       Stock  @relation(fields: [stockId], references: [id])
+  labId       String?
+  lab         Lab?   @relation(fields: [labId], references: [id])
+  quantity    Int
+  reason      String  // e.g., Damaged, Obsolete
+  scrappedAt  DateTime @default(now())
+}
+
+
+
+model ServiceRecord {
+  id          String   @id @default(uuid())
+  serviceId   String
+  service     ServiceRegister @relation(fields: [serviceId], references: [id])
+  repairedAt  DateTime?
+  repairNotes String?
+  repairedBy  String?  
+  condition   StockCondition // NEW, GOOD, NEEDS_REPAIR
+  status      ServiceStatus  // FIXED, REPLACED, DISCARDED
+  reason      ServiceReason? // DAMAGED, OBSOLETE
+  vendorId    String?  
+  vendor      Vendor?  @relation(fields: [vendorId], references: [id])
+}
+
+
+model ServiceRegister {
+  id          String @id @default(uuid())
+  stockId     String
+  stock       Stock  @relation(fields: [stockId], references: [id])
+  labId       String
+  lab         Lab    @relation(fields: [labId], references: [id])
+  quantity    Int
+  issue       String  // Issue description
+  sentAt      DateTime @default(now())
+  status      String  // e.g., Pending, In Service, Returned
+  vendorId    String?  // Vendor handling the repair
+  vendor      Vendor?  @relation(fields: [vendorId], references: [id])
+  serviceRecords ServiceRecord[]
+}
+
+model Department {
+  id    String @id @default(uuid())
+  name  String @unique
+  labs  Lab[] 
+}
+
+model Lab {
+  id         String   @id @default(uuid())
+  name       String
+  location   String?
+  createdAt  DateTime @default(now())
+  department  Department @relation(fields: [departmentId], references: [id])
+  departmentId String
+  stockMovementsFrom StockMovement[] @relation("StockMovementFromLab")
+  stockMovementsTo   StockMovement[] @relation("StockMovementToLab")
+
+  stockTransfersFrom StockTransfer[] @relation("StockTransferFromLab")
+  stockTransfersTo   StockTransfer[] @relation("StockTransferToLab")
+
+  stockEntries  LabStock[]
+  stockScraps   StockScrap[]
+  serviceRecords ServiceRegister[]
+}
+
+
+
+model StockTransfer {
+  id          String  @id @default(uuid())
+  stockId     String
+  stock       Stock   @relation(fields: [stockId], references: [id])
+
+  fromLabId   String  
+  fromLab     Lab     @relation(fields: [fromLabId], references: [id], name: "StockTransferFromLab")
+
+  toLabId     String  
+  toLab       Lab     @relation(fields: [toLabId], references: [id], name: "StockTransferToLab")
+
+  quantity    Int
+  transferredAt DateTime @default(now())
+}
+
+
+
+
 enum Hook {
   ticket_created
   ticket_status_changed
@@ -438,4 +610,21 @@ enum Template {
   ticket_status_changed
   ticket_assigned
   ticket_comment
+}
+
+enum StockCondition {
+  new
+  good
+  need_repair
+}
+
+enum ServiceStatus {
+  fixed
+  replaced
+  discarded
+}
+
+enum ServiceReason {
+  damaged
+  obsolete
 }

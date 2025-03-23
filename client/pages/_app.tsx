@@ -21,6 +21,7 @@ import { SessionProvider, useUser } from "../store/session";
 import React from "react";
 
 import AdminLayout from "../layouts/adminLayout";
+import StockLayout from "../layouts/stockLayout";
 import NewLayout from "../layouts/newLayout";
 import NoteBookLayout from "../layouts/notebook";
 import PortalLayout from "../layouts/portalLayout";
@@ -72,6 +73,25 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
                   <Component {...pageProps} />
                   <Toaster />
                 </AdminLayout>
+              </Auth>
+            </QueryClientProvider>
+          </Theme>
+        </ThemeProvider>
+      </SessionProvider>
+    );
+  }
+
+  if (router.pathname.includes("/stocks")) {
+    return (
+      <SessionProvider>
+        <ThemeProvider attribute="class" defaultTheme="light">
+          <Theme>
+            <QueryClientProvider client={queryClient}>
+              <Auth>
+                <StockLayout>
+                  <Component {...pageProps} />
+                  <Toaster />
+                </StockLayout>
               </Auth>
             </QueryClientProvider>
           </Theme>

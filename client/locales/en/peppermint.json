@@ -88,5 +88,6 @@
   "in_progress": "In Progress",
   "in_review": "In Review",
   "done": "Done",
-  "select_new_user": "Select new user"
+  "select_new_user": "Select new user",
+  "stock":"Stock"
 }

@@ -98,6 +98,9 @@ export default function NewLayout({ children }: any) {
         case "t":
           location.push("/issues");
           break;
+        case "s":
+          location.push("/stock");
+            break;
         case "a":
           location.push("/admin");
           break;
@@ -270,6 +273,29 @@ export default function NewLayout({ children }: any) {
                               </li>
                             </ul>
                             <li className="mt-auto space-y-4">
+                              {(
+                                <Link
+                                  href="/admin"
+                                  className={classNames(
+                                    location.pathname.includes("/admin")
+                                      ? "bg-secondary dark:bg-primary"
+                                      : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
+                                    "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6"
+                                  )}
+                                >
+                                  <>
+                                    <Cog6ToothIcon
+                                      className="h-4 w-4 ml-1 shrink-0 mt-1"
+                                      aria-hidden="true"
+                                    />
+                                    <span className="whitespace-nowrap">
+                                      {t("admin_settings")}
+                                    </span>
+                                  </>
+                                </Link>
+                              )}
+                            </li>
+                            <li className="mt-auto space-y-4">
                               {user.isAdmin && (
                                 <Link
                                   href="/admin"
@@ -414,6 +440,34 @@ export default function NewLayout({ children }: any) {
                         </Link>
                       </li>
                     </ul>
+                    <li className="mt-auto space-y-4">
+                      {user.isAdmin && (
+                        <Link
+                          href="/admin"
+                          className={classNames(
+                            location.pathname.includes("/admin")
+                              ? "bg-secondary dark:bg-primary"
+                              : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
+                            "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6"
+                          )}
+                        >
+                          <>
+                            <Settings
+                              className="h-4 w-4 ml-1 shrink-0 mt-1"
+                              aria-hidden="true"
+                            />
+                            <span className="whitespace-nowrap">
+                              {t("admin_settings")}
+                            </span>
+                            <div className="flex w-full justify-end float-right">
+                              <span className="flex h-6 w-6 shrink-0 items-center bg-transparent border-none justify-center text-md font-medium">
+                                a
+                              </span>
+                            </div>
+                          </>
+                        </Link>
+                      )}
+                    </li>
                     <li className="mt-auto space-y-4">
                       {user.isAdmin && (
                         <Link

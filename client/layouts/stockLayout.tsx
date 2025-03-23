@@ -25,7 +25,7 @@ import { AccountDropdown } from "../components/AccountDropdown";
 import ThemeSettings from "../components/ThemeSettings";
 import { useUser } from "../store/session";
 
-export default function AdminLayout({ children }: any) {
+export default function StockLayout({ children }: any) {
   const { t, lang } = useTranslation("peppermint");
 
   const { loading, user } = useUser();
@@ -49,7 +49,7 @@ export default function AdminLayout({ children }: any) {
     },
     {
       name: t("sl_users"),
-      href: "/admin/users/internal",
+      href: "/stock/users/internal",
       current: location.pathname === "/admin/users/internal",
       icon: UserRound,
     },
@@ -158,9 +158,9 @@ export default function AdminLayout({ children }: any) {
                     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background px-6 pb-4">
                       <div className="flex align-middle flex-row h-14 items-center border-b-[1px]">
                         {/* <img className="h-8 w-auto" src="/logo.svg" alt="Workflow" /> */}
-                        <Link href="">
+                        <Link href="https://peppermint.sh">
                           <span className="text-3xl ml-2  hover:text-green-600 font-bold ">
-                            HelpDesk
+                            Helpdesk
                           </span>
                         </Link>
                       </div>

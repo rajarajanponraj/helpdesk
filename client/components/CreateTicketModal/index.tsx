@@ -1,4 +1,4 @@
-import { Dialog, Listbox, Transition } from "@headlessui/react";
+import { Dialog, DialogBackdrop, Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition, TransitionChild } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { ChevronUpDownIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { getCookie } from "cookies-next";
@@ -178,10 +178,10 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
 
   return (
     <>
-      <Transition.Root show={open} as={Fragment}>
+      <Transition show={open} as={Fragment}>
         <Dialog as="div" className="fixed z-10 inset-0" onClose={setOpen}>
           <div className="flex items-end justify-center min-h-screen align-middle pt-4 mx-4 md:mx-12 text-center -mt-[50%] sm:-mt-0 sm:block sm:p-0">
-            <Transition.Child
+            <TransitionChild
               as={Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0"
@@ -190,8 +190,9 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-            </Transition.Child>
+               <DialogBackdrop className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+              
+            </TransitionChild>
 
             {/* This element is to trick the browser into centering the modal contents. */}
             <span
@@ -200,7 +201,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
             >
               &#8203;
             </span>
-            <Transition.Child
+            <TransitionChild
               as={Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
@@ -288,7 +289,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                   leaveTo="opacity-0"
                                 >
                                   <Listbox.Options className="absolute z-10  max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                    <Listbox.Option
+                                    <ListboxOption
                                       className={({ active }) =>
                                         classNames(
                                           active
@@ -329,10 +330,10 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                           ) : null}
                                         </>
                                       )}
-                                    </Listbox.Option>
+                                    </ListboxOption>
                                     {options !== undefined &&
                                       options.map((client: any) => (
-                                        <Listbox.Option
+                                        <ListboxOption
                                           key={client.id}
                                           className={({ active }) =>
                                             classNames(
@@ -374,7 +375,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                               ) : null}
                                             </>
                                           )}
-                                        </Listbox.Option>
+                                        </ListboxOption>
                                       ))}
                                   </Listbox.Options>
                                 </Transition>
@@ -387,7 +388,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                           {({ open }) => (
                             <>
                               <div className="relative">
-                                <Listbox.Button className="relative w-full min-w-[172px] cursor-default rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                <ListboxButton className="relative w-full min-w-[172px] cursor-default rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                   <span className="block truncate">
                                     {engineer === undefined
                                       ? t("select_an_engineer")
@@ -399,7 +400,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                       aria-hidden="true"
                                     />
                                   </span>
-                                </Listbox.Button>
+                                </ListboxButton>
 
                                 <Transition
                                   show={open}
@@ -408,8 +409,8 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                   leaveFrom="opacity-100"
                                   leaveTo="opacity-0"
                                 >
-                                  <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                    <Listbox.Option
+                                  <ListboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                    <ListboxOption
                                       className={({ active }) =>
                                         classNames(
                                           active
@@ -450,10 +451,10 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                           ) : null}
                                         </>
                                       )}
-                                    </Listbox.Option>
+                                    </ListboxOption>
                                     {users !== undefined &&
                                       users.map((user: any) => (
-                                        <Listbox.Option
+                                        <ListboxOption
                                           key={user.id}
                                           className={({ active }) =>
                                             classNames(
@@ -495,9 +496,9 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                               ) : null}
                                             </>
                                           )}
-                                        </Listbox.Option>
+                                        </ListboxOption>
                                       ))}
-                                  </Listbox.Options>
+                                  </ListboxOptions>
                                 </Transition>
                               </div>
                             </>
@@ -508,7 +509,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                           {({ open }) => (
                             <>
                               <div className="relative">
-                                <Listbox.Button className="relative w-full min-w-[172px] cursor-default rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none sm:text-sm sm:leading-6">
+                                <ListboxButton className="relative w-full min-w-[172px] cursor-default rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none sm:text-sm sm:leading-6">
                                   <span className="block truncate">
                                     {selected.name}
                                   </span>
@@ -518,7 +519,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                       aria-hidden="true"
                                     />
                                   </span>
-                                </Listbox.Button>
+                                </ListboxButton>
 
                                 <Transition
                                   show={open}
@@ -527,9 +528,9 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                   leaveFrom="opacity-100"
                                   leaveTo="opacity-0"
                                 >
-                                  <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                  <ListboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                                     {type.map((person) => (
-                                      <Listbox.Option
+                                      <ListboxOption
                                         key={person.id}
                                         className={({ active }) =>
                                           classNames(
@@ -571,9 +572,9 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                             ) : null}
                                           </>
                                         )}
-                                      </Listbox.Option>
+                                      </ListboxOption>
                                     ))}
-                                  </Listbox.Options>
+                                  </ListboxOptions>
                                 </Transition>
                               </div>
                             </>
@@ -599,10 +600,10 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                   </div>
                 </div>
               </div>
-            </Transition.Child>
+            </TransitionChild>
           </div>
         </Dialog>
-      </Transition.Root>
+      </Transition>
     </>
   );
 }

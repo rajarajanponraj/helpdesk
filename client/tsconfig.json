@@ -18,14 +18,18 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "paths": {
-      "@/*": ["./@/*"]
-    }
+      "@/*": [
+        "./@/*"
+      ]
+    },
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "pages/_document.js"  ],
+    "**/*.tsx",
+    "pages/_document.js"
+  ],
   "exclude": [
     "node_modules"
   ]

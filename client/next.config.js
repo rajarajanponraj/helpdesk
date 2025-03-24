@@ -1,8 +1,8 @@
 // next.config.js
 const withPlugins = require('next-compose-plugins');
 const removeImports = require('next-remove-imports')();
-const nextTranslate = require('next-translate');
-const { I18NProvider } = require('next/dist/server/future/helpers/i18n-provider');
+const nextTranslate = require('next-translate-plugin');
+// const { I18NProvider } = require('next/dist/server/future/helpers/i18n-provider');
 const withPWA = require('next-pwa')({
   dest: 'public',
   register: true,

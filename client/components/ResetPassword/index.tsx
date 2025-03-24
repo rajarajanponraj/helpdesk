@@ -1,5 +1,5 @@
 import { toast } from "@/shadcn/hooks/use-toast";
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, DialogBackdrop, DialogTitle, Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition, TransitionChild } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { getCookie } from "cookies-next";
 import { Fragment, useState } from "react";
@@ -61,14 +61,14 @@ export default function ResetPassword({ user }) {
       >
         Reset Password
       </button>
-      <Transition.Root show={open} as={Fragment}>
+      <Transition show={open} as={Fragment}>
         <Dialog
           as="div"
           className="fixed z-10 inset-0 overflow-y-auto"
           onClose={setOpen}
         >
           <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <Transition.Child
+            <TransitionChild
               as={Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0"
@@ -77,8 +77,9 @@ export default function ResetPassword({ user }) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-            </Transition.Child>
+               <DialogBackdrop className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+              
+            </TransitionChild>
 
             {/* This element is to trick the browser into centering the modal contents. */}
             <span
@@ -87,7 +88,7 @@ export default function ResetPassword({ user }) {
             >
               &#8203;
             </span>
-            <Transition.Child
+            <TransitionChild
               as={Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
@@ -109,12 +110,12 @@ export default function ResetPassword({ user }) {
                 </div>
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                    <Dialog.Title
+                    <DialogTitle
                       as="h3"
                       className="text-lg leading-6 font-medium text-gray-900"
                     >
                       Reset Password
-                    </Dialog.Title>
+                    </DialogTitle>
                     <div className="mt-2 space-y-4">
                       <input
                         type="password"
@@ -149,10 +150,10 @@ export default function ResetPassword({ user }) {
                   </button>
                 </div>
               </div>
-            </Transition.Child>
+            </TransitionChild>
           </div>
         </Dialog>
-      </Transition.Root>
+      </Transition>
     </div>
   );
 }

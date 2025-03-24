@@ -73,6 +73,56 @@ export type DocumentPermission =
   | 'document::delete'
   | 'document::manage';
 
+
+export type SellerPermission =
+  | 'sellers::create'
+  | 'sellers::read'
+  | 'sellers::update'
+  | 'sellers::delete';
+
+export type StockPermission =
+  | 'stocks::create'
+  | 'stocks::read'
+  | 'stocks::update'
+  | 'stocks::delete';
+
+export type PurchasePermission=
+  | 'purchases::create'
+  | 'purchases::read'
+  | 'purchases::update'
+  | 'purchases::delete';
+
+export type MovementsPermission=
+  | 'movements::create'
+  | 'movements::read'
+  | 'movements::update'
+  | 'movements::delete';
+
+export type VendorPermission =
+  | 'vendors::create'
+  | 'vendors::read'
+  | 'vendors::update'
+  | 'vendors::delete';
+
+export type LabStockPermission=
+  | 'lab-stocks::read'
+  | 'lab-stocks::allocate';
+
+export type ServiceRecordsPermission =
+  | 'service-records::create'
+  | 'service-records::read'
+  | 'service-records::update'
+  | 'service-records::delete';
+
+export type ServiceRegisterPermission =
+  | 'service-registers::register'
+  | 'service-registers::read';
+
+export type ScrapRecordPermission =
+  | 'stock-scraps::scrap'
+  | 'stock-scraps::read'
+
+
 export type Permission =
   | IssuePermission
   | UserPermission
@@ -84,7 +134,16 @@ export type Permission =
   | TimeTrackingPermission
   | ViewPermission
   | WebhookPermission
-  | DocumentPermission;
+  | DocumentPermission
+  | SellerPermission
+  | StockPermission
+  | PurchasePermission
+  | MovementsPermission
+  | VendorPermission
+  | LabStockPermission
+  | ServiceRecordsPermission
+  | ServiceRegisterPermission
+  | ScrapRecordPermission;
 
 // Useful type for grouping permissions by category
 export const PermissionCategories = {
@@ -99,6 +158,16 @@ export const PermissionCategories = {
   VIEW: 'Views',
   WEBHOOK: 'Webhook Management',
   DOCUMENT: 'Document Management',
+  SELLER: 'Seller Management',
+  STOCK : 'Stock Managemement',
+  PURCHASE : 'Purchase Management',
+  MOVEMENT : 'Movement Management',
+  VENDOR : 'Vendor Management',
+  LABSTOCK : 'Labstock Management',
+  SERVICE_RECORD :'Service Record Management',
+  SERVICE_REGISTER : 'Service Register Management',
+  SCRAP_RECORD : 'Scrap Record Management'
+
 } as const;
 
 export type PermissionCategory = typeof PermissionCategories[keyof typeof PermissionCategories];

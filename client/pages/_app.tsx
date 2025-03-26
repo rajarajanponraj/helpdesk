@@ -14,7 +14,7 @@ import {
 import { MantineProvider } from "@mantine/core";
 import { Theme } from "@radix-ui/themes";
 import { useRouter } from "next/router";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { SessionProvider, useUser } from "../store/session";
 

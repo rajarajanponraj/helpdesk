@@ -30,7 +30,7 @@ import { getCookie } from "cookies-next";
 import { CheckIcon, Filter, X } from "lucide-react";
 import moment from "moment";
 import Link from "next/link";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useUser } from "../../store/session";
 
 async function getUserTickets(token: any) {
@@ -69,9 +69,9 @@ export default function Tickets() {
 
   const token = getCookie("session");
   const { data, status, error, refetch } = useQuery(
-    "allusertickets",
-    () => getUserTickets(token),
     {
+      queryKey: ["allusertickets"],
+      queryFn: () => getUserTickets(token),
       refetchInterval: 5000,
     }
   );
@@ -296,7 +296,7 @@ export default function Tickets() {
 
   return (
     <div>
-      {status === "loading" && (
+      {status === "pending" && (
         <div className="flex flex-col justify-center items-center h-screen">
           <Loader color="green" size={100} />
         </div>

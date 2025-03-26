@@ -4,7 +4,7 @@ import Loader from "react-spinners/ClipLoader";
 import { getCookie } from "cookies-next";
 import moment from "moment";
 import Link from "next/link";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
 async function getUserTickets(token: any) {
@@ -22,8 +22,11 @@ export default function Tickets() {
   const router = useRouter();
 
   const token = getCookie("session");
-  const { data, status, error } = useQuery("allusertickets", () =>
-    getUserTickets(token)
+  const { data, status, error, refetch } = useQuery(
+    {
+      queryKey: ["allusertickets"],
+      queryFn: () => getUserTickets(token),
+    }
   );
 
   const high = "bg-red-100 text-red-800";
@@ -32,7 +35,7 @@ export default function Tickets() {
 
   return (
     <div>
-      {status === "loading" && (
+      {status === "pending" && (
         <div className="flex flex-col justify-center items-center h-screen">
           <Loader color="green" size={100} />
         </div>

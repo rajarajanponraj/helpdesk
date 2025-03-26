@@ -1,5 +1,4 @@
 import { getCookie } from "cookies-next";
-import Link from "next/link";
 import React, { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -8,58 +7,38 @@ import {
   getPaginationRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import ResetPassword from "../../../../components/ResetPassword";
-import UpdateUserModal from "../../../../components/UpdateUserModal";
 
-const fetchUsers = async (token) => {
-  const res = await fetch(`/api/v1/users/all`, {
+const fetchAllSellers = async () => {
+  const res = await fetch(`/api/v1/sellers/all`, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getCookie("session")}`,
     },
   });
   return res.json();
 };
 
-export default function UserAuthPanel() {
-  const token = getCookie("session");
-  const { data, status, refetch } = useQuery({
-    queryKey: ["fetchAuthUsers"],
-    queryFn: () => fetchUsers(token),
+export default function Sellers() {
+  const { data, status } = useQuery({
+    queryKey: ["fetchAllSellers"],
+    queryFn: fetchAllSellers,
   });
-
-  async function deleteUser(id) {
-    try {
-      await fetch(`/api/v1/auth/user/${id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      refetch();
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   const columns = useMemo(
     () => [
-      { header: "Name", accessorKey: "name" },
-      { header: "Email", accessorKey: "email" },
+      { header: "Seller Name", accessorKey: "name" },
+      { header: "Contact Name", accessorKey: "contactName" },
       {
         header: "Actions",
         accessorKey: "id",
         cell: ({ getValue }) => (
-          <div className="space-x-4 flex flex-row">
-            <UpdateUserModal user={getValue()} />
-            <ResetPassword user={getValue()} />
-            <button
-              type="button"
-              onClick={() => deleteUser(getValue())}
-              className="inline-flex items-center px-4 py-1.5 border font-semibold border-gray-300 shadow-xs text-xs rounded text-white bg-red-700 hover:bg-red-500"
-            >
-              Delete
-            </button>
-          </div>
+          <button
+            type="button"
+            className="rounded bg-white hover:bg-red-100 px-2.5 py-1.5 text-xs font-semibold text-red-600 hover:text-white shadow-xs ring-1 ring-inset ring-gray-300"
+            onClick={() => deleteSeller(getValue())}
+          >
+            Delete
+          </button>
         ),
       },
     ],
@@ -67,16 +46,25 @@ export default function UserAuthPanel() {
   );
 
   const table = useReactTable({
-    data: data?.users || [],
+    data: data?.sellers || [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
 
+  async function deleteSeller(id) {
+    await fetch(`/api/v1/sellers/${id}/delete`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${getCookie("session")}`,
+      },
+    });
+  }
+
   return (
     <main className="flex-1">
       <div className="relative max-w-4xl mx-auto md:px-8 xl:px-0">
-        <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Internal Users</h1>
+        <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Sellers</h1>
         <div className="py-4">
           {status === "pending" && <h2>Loading data...</h2>}
           {status === "error" && <h2 className="text-2xl font-bold">Error fetching data...</h2>}

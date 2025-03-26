@@ -53,14 +53,14 @@ export default function PasswordChange({ children }) {
           <div className="m-2 space-y-4 p-4">
             <input
               type="password"
-              className="shadow-sm text-foreground bg-transparent focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              className="shadow-xs text-foreground bg-transparent focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter users new password"
             />
 
             <input
               type="password"
-              className="shadow-sm text-foreground bg-transparent focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              className="shadow-xs text-foreground bg-transparent focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
               onChange={(e) => setCheck(e.target.value)}
               placeholder="Confirm users password"
             />
@@ -72,7 +72,7 @@ export default function PasswordChange({ children }) {
               await postData();
             }}
             type="submit"
-            className="inline-flex bg-primary items-center px-4 py-2 border font-semibold border-gray-300 shadow-sm text-xs rounded text-white"
+            className="inline-flex bg-primary items-center px-4 py-2 border font-semibold border-gray-300 shadow-xs text-xs rounded text-white"
           >
             Update Password
           </button>

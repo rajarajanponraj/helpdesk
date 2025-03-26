@@ -93,7 +93,7 @@ export default function Login({}) {
         {status === "loading" ? (
           <div className="text-center mr-4">{/* <Loader size={32} /> */}</div>
         ) : (
-          <div className="bg-background py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <div className="bg-background py-8 px-4 shadow-sm sm:rounded-lg sm:px-10">
             <div className="space-y-4">
               <div>
                 <label
@@ -110,7 +110,7 @@ export default function Login({}) {
                     autoComplete="email"
                     required
                     onChange={(e) => setEmail(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-md shadow-xs placeholder-gray-400 focus:outline-hidden focus:ring-green-500 focus:border-green-500 sm:text-sm"
                     onKeyPress={(event) => {
                       if (event.key === "Enter") {
                         postData();
@@ -135,7 +135,7 @@ export default function Login({}) {
                     autoComplete="password"
                     required
                     onChange={(e) => setPassword(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-md shadow-xs placeholder-gray-400 focus:outline-hidden focus:ring-green-500 focus:border-green-500 sm:text-sm"
                     onKeyPress={(event) => {
                       if (event.key === "Enter") {
                         postData();
@@ -160,7 +160,7 @@ export default function Login({}) {
                 <button
                   type="submit"
                   onClick={postData}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-xs text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
                   Sign In
                 </button>
@@ -169,7 +169,7 @@ export default function Login({}) {
                   <button
                     type="submit"
                     onClick={() => router.push(url)}
-                    className="w-full flex justify-center py-2 px-4 border rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                    className="w-full flex justify-center py-2 px-4 border rounded-md shadow-xs text-sm font-medium focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                   >
                     Sign in with OIDC
                   </button>

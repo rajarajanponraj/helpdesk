@@ -51,7 +51,7 @@ export function UserCombo({
             {selectedStatus ? (
               <div className="flex flex-row space-x-2 w-[120px]">
                 {!hideInitial && (
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gray-500">
                       <span className="text-xs font-medium leading-none text-white uppercase ">
                         {selectedStatus.name[0]}
@@ -65,7 +65,7 @@ export function UserCombo({
               <>
                 <div className="flex flex-row space-x-3">
                   {!hideInitial && (
-                    <div className="flex-shrink-0">
+                    <div className="shrink-0">
                       <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gray-500">
                         <span className="text-xs font-medium leading-none text-white uppercase ">
                           {defaultName[0]}
@@ -145,7 +145,7 @@ export function IconCombo({
             {selectedStatus ? (
               <div className="flex flex-row space-x-2 w-[120px]">
                 {!hideInitial && (
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <span className="inline-flex h-6 w-6 pl-2.5 items-center justify-center ">
                       <span className="text-xs font-medium leading-none text-foreground uppercase ">
                         <selectedStatus.icon className="mr-2 h-4 w-4 shrink-0" />
@@ -159,7 +159,7 @@ export function IconCombo({
               </div>
             ) : defaultName ? (
               <div className="flex flex-row space-x-2">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <span className="inline-flex h-6 w-6 pl-2.5 items-center justify-center ">
                     <span className="text-xs font-medium leading-none text-foreground uppercase ">
                       {defaultIcon && (

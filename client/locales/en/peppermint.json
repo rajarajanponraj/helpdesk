@@ -89,5 +89,16 @@
   "in_review": "In Review",
   "done": "Done",
   "select_new_user": "Select new user",
-  "stock":"Stock"
+  "stock":"Stock",
+  "back": "Back",
+  "sellers": "Sellers",
+  "stocks": "Stocks",
+  "stock_movements": "Stock Movements",
+  "purchases": "Purchases",
+  "lab_stocks": "Lab Stocks",
+  "vendors": "Vendors",
+  "stock_scraps": "Stock Scraps",
+  "service_records": "Service Records",
+  "service_registers": "Service Registers"
+
 }

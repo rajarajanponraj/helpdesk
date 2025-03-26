@@ -57,18 +57,18 @@ export default function UserProfile() {
         </CardHeader>
         <CardContent>
           <div className="mt-6 flex flex-col lg:flex-row">
-            <div className="flex-grow space-y-6">
+            <div className="grow space-y-6">
               <div>
                 <label className="block text-sm font-medium text-foreground">
                   {t("name")}
                 </label>
-                <div className="mt-1 rounded-md shadow-sm flex">
+                <div className="mt-1 rounded-md shadow-xs flex">
                   <input
                     type="text"
                     name="name"
                     id="name"
                     autoComplete="name"
-                    className="text-foreground bg-background flex-grow block w-full min-w-0 rounded-md sm:text-sm border-gray-300"
+                    className="text-foreground bg-background grow block w-full min-w-0 rounded-md sm:text-sm border-gray-300"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
@@ -79,12 +79,12 @@ export default function UserProfile() {
                 <label className="block text-sm font-medium text-foreground">
                   {t("email")}
                 </label>
-                <div className="mt-1 rounded-md shadow-sm flex">
+                <div className="mt-1 rounded-md shadow-xs flex">
                   <input
                     type="email"
                     name="email"
                     autoComplete="email"
-                    className="text-foreground bg-background flex-grow block w-full min-w-0 rounded-md sm:text-sm border-gray-300"
+                    className="text-foreground bg-background grow block w-full min-w-0 rounded-md sm:text-sm border-gray-300"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -94,11 +94,11 @@ export default function UserProfile() {
                 <label className="block text-sm font-medium text-foreground">
                   {t("language")}
                 </label>
-                <div className="mt-1 rounded-md shadow-sm flex">
+                <div className="mt-1 rounded-md shadow-xs flex">
                   <select
                     id="language"
                     name="language"
-                    className="text-foreground bg-background flex-grow block w-full min-w-0 rounded-md sm:text-sm border-gray-300"
+                    className="text-foreground bg-background grow block w-full min-w-0 rounded-md sm:text-sm border-gray-300"
                     value={language}
                     onChange={(e) => changeLanguage(e.target.value)}
                   >
@@ -131,7 +131,7 @@ export default function UserProfile() {
                 router.reload();
               }}
               type="submit"
-              className="inline-flex items-center px-4 py-2 border font-semibold border-gray-300 shadow-sm text-xs rounded text-gray-700 bg-white hover:bg-gray-50 "
+              className="inline-flex items-center px-4 py-2 border font-semibold border-gray-300 shadow-xs text-xs rounded text-gray-700 bg-white hover:bg-gray-50 "
             >
               {t("save_and_reload")}
             </button>

@@ -134,7 +134,7 @@ export default function Home() {
                   <Link href={item.href}>
                     <div
                       key={item.name}
-                      className="px-4 py-5 bg-gray-900 shadow rounded-lg overflow-hidden sm:p-6"
+                      className="px-4 py-5 bg-gray-900 shadow-sm rounded-lg overflow-hidden sm:p-6"
                     >
                       <dt className="text-sm font-medium text-white truncate">
                         {item.name}
@@ -153,7 +153,7 @@ export default function Home() {
                 <>
                   <button
                     type="button"
-                    className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="relative block w-full rounded-lg border-2 border-dashed border-gray-300 p-12 text-center hover:border-gray-400 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     <svg
                       className="mx-auto h-12 w-12 text-gray-400 dark:text-white"

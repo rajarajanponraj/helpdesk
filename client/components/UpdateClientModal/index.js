@@ -34,7 +34,7 @@ export default function UpdateClientModal({ client }) {
       <button
         onClick={() => setOpen(true)}
         type="button"
-        className="inline-flex items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+        className="inline-flex items-center py-2 px-4 border border-transparent rounded-md shadow-xs text-white bg-green-600 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
       >
         Edit
       </button>
@@ -77,7 +77,7 @@ export default function UpdateClientModal({ client }) {
                 <div className="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
                   <button
                     type="button"
-                    className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     onClick={() => setOpen(false)}
                   >
                     <span className="sr-only">Close</span>
@@ -95,7 +95,7 @@ export default function UpdateClientModal({ client }) {
                     <div className="mt-2 space-y-4">
                       <input
                         type="text"
-                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-3/4 sm:text-sm border-gray-300 rounded-md"
+                        className="shadow-xs focus:ring-indigo-500 focus:border-indigo-500 block w-3/4 sm:text-sm border-gray-300 rounded-md"
                         placeholder="Enter client name here..."
                         name="name"
                         onChange={(e) => setName(e.target.value)}
@@ -104,7 +104,7 @@ export default function UpdateClientModal({ client }) {
 
                       <input
                         type="email"
-                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                        className="shadow-xs focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                         placeholder="Enter email here...."
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
@@ -112,7 +112,7 @@ export default function UpdateClientModal({ client }) {
 
                       <input
                         type="text"
-                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                        className="shadow-xs focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                         placeholder="Enter client primary contact name here..."
                         onChange={(e) => setContactName(e.target.value)}
                         value={contactName}
@@ -120,7 +120,7 @@ export default function UpdateClientModal({ client }) {
 
                       <input
                         type="text"
-                        className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                        className="shadow-xs focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                         placeholder="Enter client primary contact number here..."
                         onChange={(e) => setNumber(e.target.value)}
                         value={number}
@@ -131,7 +131,7 @@ export default function UpdateClientModal({ client }) {
                 <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                   <button
                     type="button"
-                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-xs px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={() => {
                       updateClient();
                       router.reload(router.pathname);

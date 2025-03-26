@@ -249,7 +249,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
               >
                 Client ID
               </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
+              <div className="mt-1 flex rounded-md shadow-xs">
                 <input
                   type="text"
                   name="client_id"
@@ -269,7 +269,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
               >
                 Client Secret
               </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
+              <div className="mt-1 flex rounded-md shadow-xs">
                 <input
                   type="text"
                   name="client_secret"
@@ -289,7 +289,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
               >
                 User Email
               </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
+              <div className="mt-1 flex rounded-md shadow-xs">
                 <input
                   type="email"
                   name="user_email"
@@ -309,7 +309,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
               >
                 Redirect URI
               </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
+              <div className="mt-1 flex rounded-md shadow-xs">
                 <input
                   type="text"
                   name="redirect_uri"

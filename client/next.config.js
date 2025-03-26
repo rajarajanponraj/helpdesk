@@ -12,9 +12,10 @@ const withPWA = require('next-pwa')({
 
 module.exports = withPlugins(
   [removeImports, nextTranslate, withPWA],
+  
   {
     reactStrictMode: false,
-    swcMinify: true,
+    // swcMinify: true,
     output: 'standalone',
 
     async rewrites() {

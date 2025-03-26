@@ -1,6 +1,8 @@
 import {
   Dialog,
+  DialogPanel,
   Transition,
+  TransitionChild,
 } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -130,13 +132,13 @@ export default function NewLayout({ children }: any) {
     !loading &&
     user && (
       <div className="min-h-screen overflow-hidden bg-background">
-        <Transition.Root show={sidebarOpen} as={Fragment}>
+        <Transition show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
             className="relative z-50 lg:hidden"
             onClose={setSidebarOpen}
           >
-            <Transition.Child
+            <TransitionChild
               as={Fragment}
               enter="transition-opacity ease-linear duration-300"
               enterFrom="opacity-0"
@@ -146,10 +148,10 @@ export default function NewLayout({ children }: any) {
               leaveTo="opacity-0"
             >
               <div className="fixed inset-0 bg-gray-900/80" />
-            </Transition.Child>
+            </TransitionChild>
 
             <div className="fixed inset-0 flex">
-              <Transition.Child
+              <TransitionChild
                 as={Fragment}
                 enter="transition ease-in-out duration-300 transform"
                 enterFrom="-translate-x-full"
@@ -158,8 +160,8 @@ export default function NewLayout({ children }: any) {
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full"
               >
-                <Dialog.Panel className="relative mr-16 flex w-full max-w-xs flex-1">
-                  <Transition.Child
+                <DialogPanel className="relative mr-16 flex w-full max-w-xs flex-1">
+                  <TransitionChild
                     as={Fragment}
                     enter="ease-in-out duration-300"
                     enterFrom="opacity-0"
@@ -181,7 +183,7 @@ export default function NewLayout({ children }: any) {
                         />
                       </button>
                     </div>
-                  </Transition.Child>
+                  </TransitionChild>
                   {/* Sidebar component, swap this element with another sidebar if you like */}
                   <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background px-6 pb-4">
                     <div className="flex align-middle flex-row h-14 items-center border-b-[1px]">
@@ -324,11 +326,11 @@ export default function NewLayout({ children }: any) {
                       <ThemeSettings />
                     </nav>
                   </div>
-                </Dialog.Panel>
-              </Transition.Child>
+                </DialogPanel>
+              </TransitionChild>
             </div>
           </Dialog>
-        </Transition.Root>
+        </Transition>
 
         {/* Static sidebar for desktop */}
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-10 lg:flex lg:w-64 2xl:w-72 lg:flex-col border-r-[1px]">
@@ -496,6 +498,62 @@ export default function NewLayout({ children }: any) {
                         </Link>
                       )}
                     </li>
+                    <li className="mt-auto space-y-4">
+                      {user.isAdmin && (
+                        <Link
+                          href="/admin"
+                          className={classNames(
+                            location.pathname.includes("/admin")
+                              ? "bg-secondary dark:bg-primary"
+                              : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
+                            "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6"
+                          )}
+                        >
+                          <>
+                            <Settings
+                              className="h-4 w-4 ml-1 shrink-0 mt-1"
+                              aria-hidden="true"
+                            />
+                            <span className="whitespace-nowrap">
+                              {t("admin_settings")}
+                            </span>
+                            <div className="flex w-full justify-end float-right">
+                              <span className="flex h-6 w-6 shrink-0 items-center bg-transparent border-none justify-center text-md font-medium">
+                                a
+                              </span>
+                            </div>
+                          </>
+                        </Link>
+                      )}
+                    </li>
+                    <li className="mt-auto space-y-4">
+                      {user.isAdmin && (
+                        <Link
+                          href="/admin"
+                          className={classNames(
+                            location.pathname.includes("/admin")
+                              ? "bg-secondary dark:bg-primary"
+                              : " hover:bg-[#F0F3F9] dark:hover:bg-white dark:hover:text-gray-900 ",
+                            "group -mx-2 flex gap-x-3 p-1 rounded-md text-xs font-semibold leading-6"
+                          )}
+                        >
+                          <>
+                            <Settings
+                              className="h-4 w-4 ml-1 shrink-0 mt-1"
+                              aria-hidden="true"
+                            />
+                            <span className="whitespace-nowrap">
+                              {t("admin_settings")}
+                            </span>
+                            <div className="flex w-full justify-end float-right">
+                              <span className="flex h-6 w-6 shrink-0 items-center bg-transparent border-none justify-center text-md font-medium">
+                                a
+                              </span>
+                            </div>
+                          </>
+                        </Link>
+                      )}
+                    </li>
                   </ul>
                 </li>
               </ul>
@@ -537,7 +595,7 @@ export default function NewLayout({ children }: any) {
               <div className="flex w-full justify-end items-center gap-x-2 lg:gap-x-2 ">
                 <Button
                   variant="outline"
-                  className="relative rounded-md p-2 text-gray-400 hover:text-gray-500 hover:cursor-pointer focus:outline-none"
+                  className="relative rounded-md p-2 text-gray-400 hover:text-gray-500 hover:cursor-pointer focus:outline-hidden"
                 >
                   <Link href="/notifications">
                     <Bell className="h-4 w-4 text-foreground" />

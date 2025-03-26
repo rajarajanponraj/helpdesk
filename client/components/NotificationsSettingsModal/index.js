@@ -128,7 +128,7 @@ export default function NotificationsSettingsModal() {
                       type="text"
                       name="smtp"
                       id="smtp"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       placeholder=""
                       onChange={(e) => setHost(e.target.value)}
                     />
@@ -144,7 +144,7 @@ export default function NotificationsSettingsModal() {
                       type="email"
                       name="reply"
                       id="reply"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       placeholder="noreply@peppermint.sh"
                       onChange={(e) => setReply(e.target.value)}
                     />
@@ -160,7 +160,7 @@ export default function NotificationsSettingsModal() {
                       type="text"
                       name="port"
                       id="port"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       placeholder="403"
                       onChange={(e) => setPort(e.target.value)}
                     />
@@ -176,7 +176,7 @@ export default function NotificationsSettingsModal() {
                       type="email"
                       name="email"
                       id="email"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       placeholder=""
                       onChange={(e) => setUsername(e.target.value)}
                     />
@@ -192,7 +192,7 @@ export default function NotificationsSettingsModal() {
                       type="password"
                       name="password"
                       id="password"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                      className="block w-full rounded-md border-gray-300 shadow-xs focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       placeholder=""
                       onChange={(e) => setPassword(e.target.value)}
                     />
@@ -207,7 +207,7 @@ export default function NotificationsSettingsModal() {
                           postData();
                         }}
                         type="button"
-                        className="inline-flex justify-center rounded-md shadow-sm px-2.5 py-1.5 border border-transparent text-xs bg-green-600 font-medium text-white hover:bg-green-700 focus:outline-none "
+                        className="inline-flex justify-center rounded-md shadow-xs px-2.5 py-1.5 border border-transparent text-xs bg-green-600 font-medium text-white hover:bg-green-700 focus:outline-hidden "
                       >
                         Save
                       </button>

@@ -50,7 +50,7 @@ export default function Tickets() {
                           e.stopPropagation();
                           markasread(item.id);
                         }}
-                        className="inline-flex z-10 items-center px-2.5 py-1.5 border font-semibold border-gray-300 shadow-sm text-xs rounded text-gray-700 bg-white hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="inline-flex z-10 items-center px-2.5 py-1.5 border font-semibold border-gray-300 shadow-xs text-xs rounded text-gray-700 bg-white hover:bg-gray-50 hover:text-gray-900 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                       >
                         mark as read
                       </button>

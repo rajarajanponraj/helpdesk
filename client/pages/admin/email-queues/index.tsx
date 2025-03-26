@@ -56,7 +56,7 @@ export default function EmailQueues() {
                 <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                   <Link
                     href="/admin/email-queues/new"
-                    className="rounded bg-white px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                    className="rounded bg-white px-4 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                   >
                     New Queue
                   </Link>
@@ -122,7 +122,7 @@ export default function EmailQueues() {
                             <button
                               type="button"
                               onClick={() => deleteItem(item.id)}
-                              className="rounded bg-red-600 py-1 px-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                              className="rounded bg-red-600 py-1 px-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
                             >
                               Delete
                             </button>

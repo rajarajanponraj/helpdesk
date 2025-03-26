@@ -47,7 +47,7 @@ export function UserProfile() {
         </div>
 
         <div className="mt-6 flex flex-col lg:flex-row">
-          <div className="flex-grow space-y-6">
+          <div className="grow space-y-6">
             <div>
               <label
                 for="firstname"
@@ -55,13 +55,13 @@ export function UserProfile() {
               >
                 Name
               </label>
-              <div className="mt-1 rounded-md shadow-sm flex">
+              <div className="mt-1 rounded-md shadow-xs flex">
                 <input
                   type="text"
                   name="name"
                   id="name"
                   autoComplete="name"
-                  className="focus:ring-light-blue-500 focus:border-light-blue-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
+                  className="focus:ring-light-blue-500 focus:border-light-blue-500 grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
                   defaultValue={session.user.name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -75,12 +75,12 @@ export function UserProfile() {
               >
                 Email
               </label>
-              <div className="mt-1 rounded-md shadow-sm flex">
+              <div className="mt-1 rounded-md shadow-xs flex">
                 <input
                   type="email"
                   name="email"
                   autoComplete="email"
-                  className="focus:ring-light-blue-500 focus:border-light-blue-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
+                  className="focus:ring-light-blue-500 focus:border-light-blue-500 grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
                   defaultValue={session.user.email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -93,11 +93,11 @@ export function UserProfile() {
               >
                 Language
               </label>
-              <div className="mt-1 rounded-md shadow-sm flex">
+              <div className="mt-1 rounded-md shadow-xs flex">
                 <select
                   id="language"
                   name="language"
-                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                   defaultValue={router.locale}
                   onChange={(e) => changeLanguage(e.target.value)}
                 >
@@ -120,7 +120,7 @@ export function UserProfile() {
             router.reload();
           }}
           type="submit"
-          className="ml-5 bg-light-blue-700 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-black hover:bg-light-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
+          className="ml-5 bg-light-blue-700 border border-transparent rounded-md shadow-xs py-2 px-4 inline-flex justify-center text-sm font-medium text-black hover:bg-light-blue-800 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
         >
           Save & Reload
         </button>

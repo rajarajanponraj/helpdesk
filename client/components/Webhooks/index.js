@@ -65,7 +65,7 @@ export default function Webhooks() {
           type="button"
           className={
             show === "main"
-              ? "inline-flex float-right -mt-8 items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              ? "inline-flex float-right -mt-8 items-center px-3 py-2 border border-gray-300 shadow-xs text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               : "hidden"
           }
         >
@@ -77,7 +77,7 @@ export default function Webhooks() {
           className={
             show === "main"
               ? "hidden"
-              : "inline-flex float-right -mt-8 items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              : "inline-flex float-right -mt-8 items-center px-3 py-2 border border-gray-300 shadow-xs text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           }
         >
           Cancel
@@ -99,7 +99,7 @@ export default function Webhooks() {
                 {data.hooks.map((hook) => (
                   <div
                     key={hook.id}
-                    className="rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3"
+                    className="rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-xs flex items-center space-x-3"
                   >
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-gray-900">
@@ -113,7 +113,7 @@ export default function Webhooks() {
                       <button
                         onClick={() => deleteHook(hook.id)}
                         type="button"
-                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-xs text-white bg-red-600 hover:bg-red-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                       >
                         Delete
                       </button>
@@ -143,7 +143,7 @@ export default function Webhooks() {
                   type="text"
                   name="url"
                   id="url"
-                  className="shadow-sm focus:ring-green\-500 focus:border-green-500 block w-full sm:w-1/2 md:w-3/4 sm:text-sm border-gray-300 rounded-md"
+                  className="shadow-xs focus:ring-green\-500 focus:border-green-500 block w-full sm:w-1/2 md:w-3/4 sm:text-sm border-gray-300 rounded-md"
                   required
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -160,7 +160,7 @@ export default function Webhooks() {
                   type="text"
                   name="url"
                   id="url"
-                  className="shadow-sm focus:ring-green\-500 focus:border-green-500 block w-full sm:w-1/2 md:w-3/4 sm:text-sm border-gray-300 rounded-md"
+                  className="shadow-xs focus:ring-green\-500 focus:border-green-500 block w-full sm:w-1/2 md:w-3/4 sm:text-sm border-gray-300 rounded-md"
                   required
                   onChange={(e) => setUrl(e.target.value)}
                 />
@@ -176,7 +176,7 @@ export default function Webhooks() {
                   type="text"
                   name="url"
                   id="url"
-                  className="shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:w-1/2 md:w-3/4 sm:text-sm border-gray-300 rounded-md"
+                  className="shadow-xs focus:ring-green-500 focus:border-green-500 block w-full sm:w-1/2 md:w-3/4 sm:text-sm border-gray-300 rounded-md"
                   placeholder=""
                   onChange={(e) => setSecret(e.target.value)}
                 />
@@ -192,7 +192,7 @@ export default function Webhooks() {
                 <select
                   id="location"
                   name="location"
-                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                   defaultValue="ticket_created"
                   onChange={(e) => setType(e.target.value)}
                 >
@@ -208,7 +208,7 @@ export default function Webhooks() {
                   as="div"
                   className="flex items-center justify-between"
                 >
-                  <span className="flex-grow flex flex-row">
+                  <span className="grow flex flex-row">
                     <Switch.Label
                       as="span"
                       className="text-sm font-medium text-gray-900 w-1/6"
@@ -221,14 +221,14 @@ export default function Webhooks() {
                       onChange={setEnabled}
                       className={classNames(
                         enabled ? "bg-green-600" : "bg-gray-200",
-                        "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                        "relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                       )}
                     >
                       <span
                         aria-hidden="true"
                         className={classNames(
                           enabled ? "translate-x-5" : "translate-x-0",
-                          "pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
+                          "pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-sm transform ring-0 transition ease-in-out duration-200"
                         )}
                       />
                     </Switch>
@@ -242,7 +242,7 @@ export default function Webhooks() {
                   setShow("main");
                 }}
                 type="button"
-                className="mt-8 inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                className="mt-8 inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md shadow-xs text-white bg-green-600 hover:bg-green-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
               >
                 Add Webhook
               </button>

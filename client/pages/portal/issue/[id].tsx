@@ -185,7 +185,7 @@ export default function Ticket() {
                         {({ open }) => (
                           <>
                             <div className="relative">
-                              <Listbox.Button className="bg-white z-50 relative w-full border border-gray-300 rounded-md shadow-sm pl-3 pr-10 px-4 py-1.5 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                              <Listbox.Button className="bg-white z-50 relative w-full border border-gray-300 rounded-md shadow-xs pl-3 pr-10 px-4 py-1.5 text-left cursor-default focus:outline-hidden focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 <span className="block min-w-[75px] text-xs">
                                   {data.ticket.assignedTo
                                     ? data.ticket.assignedTo.name
@@ -202,7 +202,7 @@ export default function Ticket() {
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0"
                               >
-                                <Listbox.Options className="absolute z-50 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                                <Listbox.Options className="absolute z-50 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-hidden sm:text-sm">
                                   {users.map((user: any) => (
                                     <Listbox.Option
                                       key={user.id}
@@ -270,7 +270,7 @@ export default function Ticket() {
                         {data.ticket.priority === "Low" && (
                           <li className="inline">
                             <div className="relative inline-flex items-center rounded-full px-2.5 py-1 ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                              <div className="absolute flex flex-shrink-0 items-center justify-center">
+                              <div className="absolute flex shrink-0 items-center justify-center">
                                 <span
                                   className="h-1.5 w-1.5 rounded-full bg-blue-500"
                                   aria-hidden="true"
@@ -285,7 +285,7 @@ export default function Ticket() {
                         {data.ticket.priority === "Normal" && (
                           <li className="inline">
                             <div className="relative inline-flex items-center rounded-full px-2.5 py-1 ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                              <div className="absolute flex flex-shrink-0 items-center justify-center">
+                              <div className="absolute flex shrink-0 items-center justify-center">
                                 <span
                                   className="h-1.5 w-1.5 rounded-full bg-green-500"
                                   aria-hidden="true"
@@ -300,7 +300,7 @@ export default function Ticket() {
                         {data.ticket.priority === "High" && (
                           <li className="inline">
                             <div className="relative inline-flex items-center rounded-full px-2.5 py-1 ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                              <div className="absolute flex flex-shrink-0 items-center justify-center">
+                              <div className="absolute flex shrink-0 items-center justify-center">
                                 <span
                                   className="h-1.5 w-1.5 rounded-full bg-rose-500"
                                   aria-hidden="true"
@@ -315,7 +315,7 @@ export default function Ticket() {
                         {data.ticket.status && (
                           <li className="inline">
                             <div className="relative inline-flex items-center rounded-full px-2.5 py-1 ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                              <div className="absolute flex flex-shrink-0 items-center justify-center">
+                              <div className="absolute flex shrink-0 items-center justify-center">
                                 <span
                                   className="h-1.5 w-1.5 rounded-full bg-rose-500"
                                   aria-hidden="true"
@@ -447,7 +447,7 @@ export default function Ticket() {
                                   id="comment"
                                   name="comment"
                                   rows={3}
-                                  className="block w-full dark:bg-black rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-gray-900 sm:text-sm sm:leading-6"
+                                  className="block w-full dark:bg-black rounded-md border-0 py-1.5 shadow-xs ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-gray-900 sm:text-sm sm:leading-6"
                                   placeholder="Leave a comment"
                                   defaultValue={""}
                                   onChange={(e) => setComment(e.target.value)}
@@ -458,7 +458,7 @@ export default function Ticket() {
                                   <button
                                     type="button"
                                     onClick={() => updateStatus()}
-                                    className="inline-flex justify-center items-center gap-x-1.5 rounded-md bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                    className="inline-flex justify-center items-center gap-x-1.5 rounded-md bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                                   >
                                     <CheckCircleIcon
                                       className="-ml-0.5 h-5 w-5 text-red-500"
@@ -472,7 +472,7 @@ export default function Ticket() {
                                   <button
                                     type="button"
                                     onClick={() => updateStatus()}
-                                    className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                    className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                                   >
                                     <CheckCircleIcon
                                       className="-ml-0.5 h-5 w-5 text-green-500"
@@ -484,7 +484,7 @@ export default function Ticket() {
                                 <button
                                   onClick={() => addComment()}
                                   type="submit"
-                                  className="inline-flex items-center justify-center rounded-md bg-gray-900 px-4 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
+                                  className="inline-flex items-center justify-center rounded-md bg-gray-900 px-4 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
                                 >
                                   {t("comment")}
                                 </button>
@@ -553,7 +553,7 @@ export default function Ticket() {
                   </div>
                   <ul role="list" className="mt-3 space-y-3">
                     <li className="flex justify-star items-center space-x-2">
-                      <div className="flex-shrink-0">
+                      <div className="shrink-0">
                         <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-gray-500">
                           <span className="text-xs font-medium leading-none text-white uppercase ">
                             {data.ticket.assignedTo

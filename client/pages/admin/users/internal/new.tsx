@@ -89,7 +89,7 @@ export default function CreateUser() {
                 <label className="text-foreground font-bold">Name</label>
                 <input
                   type="text"
-                  className="px-3 py-2 text-foreground bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm"
+                  className="px-3 py-2 text-foreground bg-transparent border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm"
                   placeholder="John Doe"
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -98,7 +98,7 @@ export default function CreateUser() {
                 <label className="text-foreground font-bold">Email</label>
                 <input
                   type="text"
-                  className="px-3 py-2 text-foreground bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm"
+                  className="px-3 py-2 text-foreground bg-transparent border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm"
                   placeholder="John.Doe@test.com"
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -108,7 +108,7 @@ export default function CreateUser() {
                   <label className="text-foreground font-bold">Password</label>
                   <input
                     type="text"
-                    className="px-3 py-2 text-foreground bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm"
+                    className="px-3 py-2 text-foreground bg-transparent border border-gray-300 rounded-md shadow-xs focus:outline-hidden focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm"
                     placeholder=""
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -119,7 +119,7 @@ export default function CreateUser() {
                 <select
                   id="language"
                   name="language"
-                  className="mt-1 text-foreground bg-transparent block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                  className="mt-1 text-foreground bg-transparent block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
                   value={language}
                   onChange={(e) => setLanguage(e.target.value)}
                 >
@@ -165,7 +165,7 @@ export default function CreateUser() {
               >
                 <button
                   type="button"
-                  className="rounded-md bg-green-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-green-500"
+                  className="rounded-md bg-green-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-xs ring-1 ring-inset ring-gray-300 hover:bg-green-500"
                 >
                   Create User
                 </button>

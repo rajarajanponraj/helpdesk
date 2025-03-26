@@ -1,5 +1,4 @@
 //@ts-nocheck
-import "@radix-ui/themes/styles.css";
 import "../styles/globals.css";
 
 import { ThemeProvider } from "next-themes";

@@ -142,7 +142,7 @@ export default function Notifications() {
                       <div className="rounded-md bg-green-50 p-4">
                         <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:justify-between sm:items-center">
                           <div className="flex">
-                            <div className="flex-shrink-0">
+                            <div className="shrink-0">
                               <ExclamationTriangleIcon
                                 className="h-5 w-5 text-green-400"
                                 aria-hidden="true"
@@ -163,7 +163,7 @@ export default function Notifications() {
                           <button
                             onClick={() => deleteEmailConfig()}
                             type="button"
-                            className="rounded bg-red-500 text-white px-4 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-secondary"
+                            className="rounded bg-red-500 text-white px-4 py-2 text-sm font-semibold shadow-xs ring-1 ring-inset ring-gray-300 hover:bg-secondary"
                           >
                             Delete Settings
                           </button>
@@ -197,7 +197,7 @@ export default function Notifications() {
                       <div className="rounded-md bg-red-50 p-4">
                         <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:justify-between sm:items-center">
                           <div className="flex">
-                            <div className="flex-shrink-0">
+                            <div className="shrink-0">
                               <ExclamationTriangleIcon
                                 className="h-5 w-5 text-red-400"
                                 aria-hidden="true"
@@ -219,7 +219,7 @@ export default function Notifications() {
                           <button
                             onClick={() => deleteEmailConfig()}
                             type="button"
-                            className="rounded bg-red-500 text-white px-4 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-secondary"
+                            className="rounded bg-red-500 text-white px-4 py-2 text-sm font-semibold shadow-xs ring-1 ring-inset ring-gray-300 hover:bg-secondary"
                           >
                             Delete Settings
                           </button>
@@ -367,7 +367,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
               >
                 Client ID
               </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
+              <div className="mt-1 flex rounded-md shadow-xs">
                 <input
                   type="text"
                   name="client_id"
@@ -387,7 +387,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
               >
                 Client Secret
               </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
+              <div className="mt-1 flex rounded-md shadow-xs">
                 <input
                   type="text"
                   name="client_secret"
@@ -407,7 +407,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
               >
                 User Email
               </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
+              <div className="mt-1 flex rounded-md shadow-xs">
                 <input
                   type="email"
                   name="user_email"
@@ -427,7 +427,7 @@ function GmailSettings({ setStep }: { setStep: (step: number) => void }) {
               >
                 Redirect URI
               </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
+              <div className="mt-1 flex rounded-md shadow-xs">
                 <input
                   type="text"
                   name="redirect_uri"
@@ -505,7 +505,7 @@ function SMTP({ setStep }: { setStep: (step: number) => void }) {
               >
                 SMTP Host
               </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
+              <div className="mt-1 flex rounded-md shadow-xs">
                 <input
                   type="text"
                   name="company_website"
@@ -525,7 +525,7 @@ function SMTP({ setStep }: { setStep: (step: number) => void }) {
               >
                 Username
               </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
+              <div className="mt-1 flex rounded-md shadow-xs">
                 <input
                   type="email"
                   name="company_website"
@@ -545,7 +545,7 @@ function SMTP({ setStep }: { setStep: (step: number) => void }) {
               >
                 Password
               </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
+              <div className="mt-1 flex rounded-md shadow-xs">
                 <input
                   type="password"
                   name="company_website"
@@ -565,7 +565,7 @@ function SMTP({ setStep }: { setStep: (step: number) => void }) {
               >
                 Port
               </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
+              <div className="mt-1 flex rounded-md shadow-xs">
                 <input
                   type="number"
                   name="company_website"
@@ -585,7 +585,7 @@ function SMTP({ setStep }: { setStep: (step: number) => void }) {
               >
                 Reply Address
               </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
+              <div className="mt-1 flex rounded-md shadow-xs">
                 <input
                   type="email"
                   name="company_website"

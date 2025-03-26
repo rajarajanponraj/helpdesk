@@ -659,7 +659,7 @@ export default function Ticket() {
                           name="title"
                           id="title"
                           style={{ fontSize: "1.5rem" }}
-                          className="border-none -mt-[1px] px-0 pl-0.5 w-3/4 truncated m block text-foreground bg-transparent font-bold focus:outline-none focus:ring-0 placeholder:text-primary sm:text-sm sm:leading-6"
+                          className="border-none -mt-[1px] px-0 pl-0.5 w-3/4 truncated m block text-foreground bg-transparent font-bold focus:outline-hidden focus:ring-0 placeholder:text-primary sm:text-sm sm:leading-6"
                           value={title}
                           defaultValue={data.ticket.title}
                           onChange={(e) => setTitle(e.target.value)}
@@ -713,7 +713,7 @@ export default function Ticket() {
                         </div>
                         {user.isAdmin && (
                           <DropdownMenu>
-                            <DropdownMenuTrigger className="inline-flex items-center px-2 py-1 text-xs font-medium text-foreground ring-none outline-none ">
+                            <DropdownMenuTrigger className="inline-flex items-center px-2 py-1 text-xs font-medium text-foreground ring-none outline-hidden ">
                               <Ellipsis className="h-4 w-4" />
                             </DropdownMenuTrigger>
                             <DropdownMenuContent
@@ -970,7 +970,7 @@ export default function Ticket() {
                                   id="comment"
                                   name="comment"
                                   rows={3}
-                                  className="block w-full bg-secondary/50 dark:bg-secondary/50 rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-background focus:ring-0 focus:ring-inset focus:ring-gray-900 sm:text-sm sm:leading-6"
+                                  className="block w-full bg-secondary/50 dark:bg-secondary/50 rounded-md border-0 py-1.5 shadow-xs ring-1 ring-inset ring-background focus:ring-0 focus:ring-inset focus:ring-gray-900 sm:text-sm sm:leading-6"
                                   placeholder={
                                     data.ticket.locked
                                       ? "This ticket is locked"
@@ -1155,7 +1155,7 @@ export default function Ticket() {
                           type="text"
                           name="text"
                           id="timespent_text"
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           placeholder="What did you do?"
                           value={timeReason}
                           onChange={(e) => setTimeReason(e.target.value)}
@@ -1164,7 +1164,7 @@ export default function Ticket() {
                           type="number"
                           name="number"
                           id="timespent"
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           placeholder="Time in minutes"
                           value={timeSpent}
                           onChange={(e) => setTimeSpent(e.target.value)}

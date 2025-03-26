@@ -54,7 +54,7 @@ export default function Home() {
                 <Link
                   target="_blank"
                   href="https://github.com/Peppermint-Lab/peppermint"
-                  className="rounded-md mt-4 sm:mt-0 bg-gray-600 px-2.5 whitespace-nowrap hover:text-white py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 "
+                  className="rounded-md mt-4 sm:mt-0 bg-gray-600 px-2.5 whitespace-nowrap hover:text-white py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-gray-500 "
                 >
                   Check it out
                 </Link>
@@ -72,7 +72,7 @@ export default function Home() {
                 <Link
                   target="_blank"
                   href="https://github.com/Peppermint-Lab/peppermint"
-                  className="rounded-md flex-end bg-green-600 mt-4 whitespace-nowrap sm:mt-0 px-2.5 py-1.5 text-sm font-semibold hover:text-white text-white shadow-sm hover:bg-green-500 "
+                  className="rounded-md flex-end bg-green-600 mt-4 whitespace-nowrap sm:mt-0 px-2.5 py-1.5 text-sm font-semibold hover:text-white text-white shadow-xs hover:bg-green-500 "
                 >
                   Check it out
                 </Link>
@@ -89,7 +89,7 @@ export default function Home() {
                 <Link
                   target="_blank"
                   href="https://discord.gg/zbTy8nuHnK"
-                  className="rounded-md bg-blue-600 mt-4 whitespace-nowrap sm:mt-0 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 "
+                  className="rounded-md bg-blue-600 mt-4 whitespace-nowrap sm:mt-0 px-2.5 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-blue-500 "
                 >
                   Check it out
                 </Link>

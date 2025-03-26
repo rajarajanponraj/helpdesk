@@ -218,7 +218,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
 
                   <button
                     type="button"
-                    className="ml-auto mb-1.5 text-foreground font-bold text-xs rounded-md hover:text-primary outline-none"
+                    className="ml-auto mb-1.5 text-foreground font-bold text-xs rounded-md hover:text-primary outline-hidden"
                     onClick={() => setOpen(false)}
                   >
                     <span className="sr-only">Close</span>
@@ -231,7 +231,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                   placeholder="Issue title"
                   maxLength={64}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full pl-0 pr-0 pt-0 text-md text-foreground bg-background border-none focus:outline-none focus:shadow-none focus:ring-0 focus:border-none"
+                  className="w-full pl-0 pr-0 pt-0 text-md text-foreground bg-background border-none focus:outline-hidden focus:shadow-none focus:ring-0 focus:border-none"
                 />
 
                 <div className="">
@@ -242,7 +242,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                       placeholder={t("ticket_name_here")}
                       name="name"
                       onChange={(e) => setName(e.target.value)}
-                      className=" w-full pl-0 pr-0text-foreground bg-background  sm:text-sm border-none focus:outline-none focus:shadow-none focus:ring-0 focus:border-none"
+                      className=" w-full pl-0 pr-0text-foreground bg-background  sm:text-sm border-none focus:outline-hidden focus:shadow-none focus:ring-0 focus:border-none"
                     />
                   )}
 
@@ -252,7 +252,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                       name="email"
                       placeholder={t("ticket_email_here")}
                       onChange={(e) => setEmail(e.target.value)}
-                      className=" w-full pl-0 pr-0 text-foreground bg-background   sm:text-sm border-none focus:outline-none focus:shadow-none focus:ring-0 focus:border-none"
+                      className=" w-full pl-0 pr-0 text-foreground bg-background   sm:text-sm border-none focus:outline-hidden focus:shadow-none focus:ring-0 focus:border-none"
                     />
                   )}
 
@@ -265,7 +265,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                           {({ open }) => (
                             <>
                               <div className="relative">
-                                <Listbox.Button className="relative w-full min-w-[172px] cursor-default rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                <Listbox.Button className="relative w-full min-w-[172px] cursor-default rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 pl-3 pr-10 text-left text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 focus:outline-hidden focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                   <span className="block truncate">
                                     {company === undefined
                                       ? t("select_a_client")
@@ -288,7 +288,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                   leaveFrom="opacity-100"
                                   leaveTo="opacity-0"
                                 >
-                                  <Listbox.Options className="absolute z-10  max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                  <Listbox.Options className="absolute z-10  max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden sm:text-sm">
                                     <ListboxOption
                                       className={({ active }) =>
                                         classNames(
@@ -388,7 +388,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                           {({ open }) => (
                             <>
                               <div className="relative">
-                                <ListboxButton className="relative w-full min-w-[172px] cursor-default rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                <ListboxButton className="relative w-full min-w-[172px] cursor-default rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 pl-3 pr-10 text-left text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 focus:outline-hidden focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                   <span className="block truncate">
                                     {engineer === undefined
                                       ? t("select_an_engineer")
@@ -409,7 +409,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                   leaveFrom="opacity-100"
                                   leaveTo="opacity-0"
                                 >
-                                  <ListboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                  <ListboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden sm:text-sm">
                                     <ListboxOption
                                       className={({ active }) =>
                                         classNames(
@@ -509,7 +509,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                           {({ open }) => (
                             <>
                               <div className="relative">
-                                <ListboxButton className="relative w-full min-w-[172px] cursor-default rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none sm:text-sm sm:leading-6">
+                                <ListboxButton className="relative w-full min-w-[172px] cursor-default rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 pl-3 pr-10 text-left text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300 focus:outline-hidden sm:text-sm sm:leading-6">
                                   <span className="block truncate">
                                     {selected.name}
                                   </span>
@@ -528,7 +528,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                                   leaveFrom="opacity-100"
                                   leaveTo="opacity-0"
                                 >
-                                  <ListboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                  <ListboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-[#0A090C] dark:text-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden sm:text-sm">
                                     {type.map((person) => (
                                       <ListboxOption
                                         key={person.id}
@@ -592,7 +592,7 @@ export default function CreateTicketModal({ keypress, setKeyPressDown }) {
                           createTicket();
                         }}
                         type="button"
-                        className="inline-flex justify-center rounded-md shadow-sm px-2.5 py-1.5 border border-transparent text-xs bg-green-600 font-medium text-white hover:bg-green-700 focus:outline-none "
+                        className="inline-flex justify-center rounded-md shadow-xs px-2.5 py-1.5 border border-transparent text-xs bg-green-600 font-medium text-white hover:bg-green-700 focus:outline-hidden "
                       >
                         Create Ticket
                       </button>

@@ -45,7 +45,7 @@ export default function UserNotifications() {
                   as="div"
                   className="flex items-center justify-between"
                 >
-                  <span className="flex-grow flex flex-col">
+                  <span className="grow flex flex-col">
                     <Switch.Label
                       as="span"
                       className="text-sm font-medium text-foreground"
@@ -65,14 +65,14 @@ export default function UserNotifications() {
                     onChange={setTicket_creation}
                     className={classNames(
                       ticket_creation ? "bg-primary" : "bg-gray-200",
-                      "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      "relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     )}
                   >
                     <span
                       aria-hidden="true"
                       className={classNames(
                         ticket_creation ? "translate-x-5" : "translate-x-0",
-                        "pointer-events-none inline-block h-5 w-5 rounded-full bg-foreground shadow transform ring-0 transition ease-in-out duration-200"
+                        "pointer-events-none inline-block h-5 w-5 rounded-full bg-foreground shadow-sm transform ring-0 transition ease-in-out duration-200"
                       )}
                     />
                   </Switch>
@@ -82,7 +82,7 @@ export default function UserNotifications() {
                   as="div"
                   className="flex items-center justify-between"
                 >
-                  <span className="flex-grow flex flex-col">
+                  <span className="grow flex flex-col">
                     <Switch.Label
                       as="span"
                       className="text-sm font-medium text-foreground"
@@ -103,14 +103,14 @@ export default function UserNotifications() {
                     onChange={setTicket_status}
                     className={classNames(
                       ticket_status ? "bg-primary" : "bg-gray-200",
-                      "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      "relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     )}
                   >
                     <span
                       aria-hidden="true"
                       className={classNames(
                         ticket_status ? "translate-x-5" : "translate-x-0",
-                        "pointer-events-none inline-block h-5 w-5 rounded-full bg-foreground shadow transform ring-0 transition ease-in-out duration-200"
+                        "pointer-events-none inline-block h-5 w-5 rounded-full bg-foreground shadow-sm transform ring-0 transition ease-in-out duration-200"
                       )}
                     />
                   </Switch>
@@ -120,7 +120,7 @@ export default function UserNotifications() {
                   as="div"
                   className="flex items-center justify-between"
                 >
-                  <span className="flex-grow flex flex-col">
+                  <span className="grow flex flex-col">
                     <Switch.Label
                       as="span"
                       className="text-sm font-medium text-foreground"
@@ -140,14 +140,14 @@ export default function UserNotifications() {
                     onChange={setTicket_assigned}
                     className={classNames(
                       ticket_assigned ? "bg-primary" : "bg-gray-200",
-                      "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      "relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     )}
                   >
                     <span
                       aria-hidden="true"
                       className={classNames(
                         ticket_assigned ? "translate-x-5" : "translate-x-0",
-                        "pointer-events-none inline-block h-5 w-5 rounded-full bg-foreground shadow transform ring-0 transition ease-in-out duration-200"
+                        "pointer-events-none inline-block h-5 w-5 rounded-full bg-foreground shadow-sm transform ring-0 transition ease-in-out duration-200"
                       )}
                     />
                   </Switch>
@@ -157,7 +157,7 @@ export default function UserNotifications() {
                   as="div"
                   className="flex items-center justify-between"
                 >
-                  <span className="flex-grow flex flex-col">
+                  <span className="grow flex flex-col">
                     <Switch.Label
                       as="span"
                       className="text-sm font-medium text-foreground"
@@ -177,14 +177,14 @@ export default function UserNotifications() {
                     onChange={setTicket_comments}
                     className={classNames(
                       ticket_comments ? "bg-primary" : "bg-gray-200",
-                      "relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      "relative inline-flex shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     )}
                   >
                     <span
                       aria-hidden="true"
                       className={classNames(
                         ticket_comments ? "translate-x-5" : "translate-x-0",
-                        "pointer-events-none inline-block h-5 w-5 rounded-full bg-foreground shadow transform ring-0 transition ease-in-out duration-200"
+                        "pointer-events-none inline-block h-5 w-5 rounded-full bg-foreground shadow-sm transform ring-0 transition ease-in-out duration-200"
                       )}
                     />
                   </Switch>
@@ -195,7 +195,7 @@ export default function UserNotifications() {
                 <button
                   onClick={() => updateNotifications()}
                   type="button"
-                  className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                  className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-xs text-white bg-primary hover:bg-primary-dark focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                 >
                   save
                 </button>

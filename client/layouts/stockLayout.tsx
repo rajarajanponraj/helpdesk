@@ -42,55 +42,61 @@ export default function StockLayout({ children }: any) {
 
   const navigation = [
     {
-      name: "Back",
+      name: t('back'),
       href: "/",
       current: null,
       icon: MoveLeft,
     },
     {
-      name: t("sl_users"),
-      href: "/stock/users/internal",
-      current: location.pathname === "/admin/users/internal",
+      name: t("sellers"),
+      href: "/stocks/seller",
+      current: location.pathname === "/stocks/seller",
       icon: UserRound,
     },
     {
-      name: t("sl_clients"),
-      href: "/admin/clients",
-      current: location.pathname === "/admin/clients",
+      name: t("stocks"),
+      href: "/stocks/clients",
+      current: location.pathname === "/stocks/clients",
       icon: ContactIcon,
     },
     {
-      name: "Email Queues",
+      name: t("stock_movements"),
       href: "/admin/email-queues",
       current: location.pathname === "/admin/email-queues",
       icon: Mail,
     },
     {
-      name: "Webhooks",
+      name: t("purchases"),
       href: "/admin/webhooks",
       current: location.pathname === "/admin/webhooks",
       icon: Webhook,
     },
     {
-      name: "SMTP Email",
+      name: t("lab_stocks"),
       href: "/admin/smtp",
       current: location.pathname === "/admin/smtp",
       icon: Mailbox,
     },
     {
-      name: "Authentication",
+      name: t("vendors"),
       href: "/admin/authentication",
       current: location.pathname === "/admin/authentication",
       icon: KeyRound,
     },
     {
-      name: "Roles",
+      name: t("stock_scraps"),
       href: "/admin/roles",
       current: location.pathname === "/admin/roles",
       icon: RollerCoaster,
     },
     {
-      name: "Logs",
+      name: t("service_records"),
+      href: "/admin/logs",
+      current: location.pathname === "/admin/logs",
+      icon: FileText,
+    },
+    {
+      name: t("service_registers"),
       href: "/admin/logs",
       current: location.pathname === "/admin/logs",
       icon: FileText,
@@ -158,7 +164,7 @@ export default function StockLayout({ children }: any) {
                     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background px-6 pb-4">
                       <div className="flex align-middle flex-row h-14 items-center border-b-[1px]">
                         {/* <img className="h-8 w-auto" src="/logo.svg" alt="Workflow" /> */}
-                        <Link href="https://peppermint.sh">
+                        <Link href="">
                           <span className="text-3xl ml-2  hover:text-green-600 font-bold ">
                             Helpdesk
                           </span>
@@ -209,9 +215,9 @@ export default function StockLayout({ children }: any) {
             <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-background pb-4">
               <div className="flex align-middle flex-row h-14 items-center border-b px-6">
                 {/* <img className="h-8 w-auto" src="/logo.svg" alt="Workflow" /> */}
-                <Link href="https://peppermint.sh">
+                <Link href="">
                   <span className="text-3xl ml-2  hover:text-green-600 font-bold ">
-                    Peppermint
+                    HelpDesk
                   </span>
                 </Link>
               </div>
@@ -287,7 +293,7 @@ export default function StockLayout({ children }: any) {
                 <div className="flex w-full justify-end items-center gap-x-2 lg:gap-x-2 ">
                   <Button
                     variant="outline"
-                    className="relative rounded-md p-2 text-gray-400 hover:text-gray-500 hover:cursor-pointer focus:outline-none"
+                    className="relative rounded-md p-2 text-gray-400 hover:text-gray-500 hover:cursor-pointer focus:outline-hidden"
                   >
                     <Link href="/notifications">
                       <InboxStackIcon className="h-4 w-4 text-foreground" />

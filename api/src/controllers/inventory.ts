@@ -11,7 +11,7 @@ export async function inventoryRoutes(fastify: FastifyInstance) {
       const seller = await prisma.seller.create({
         data: request.body as any,
       });
-      reply.send({ success: true, seller });
+      reply.send({ success: true, sellers:seller });
     }
   );
 

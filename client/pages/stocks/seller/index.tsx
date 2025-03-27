@@ -1,12 +1,8 @@
 import { getCookie } from "cookies-next";
-import React, { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
-import {
-  useReactTable,
-  getCoreRowModel,
-  getPaginationRowModel,
-  flexRender,
-} from "@tanstack/react-table";
+import React, { useMemo, useState, useEffect } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Button, Dialog, DialogBackdrop, DialogPanel, DialogTitle, Input, Label } from "@headlessui/react";
+import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 
 const fetchAllSellers = async () => {
   const res = await fetch(`/api/v1/sellers/all`, {
@@ -18,29 +14,54 @@ const fetchAllSellers = async () => {
   return res.json();
 };
 
-export default function Sellers() {
-  const { data, status } = useQuery({
-    queryKey: ["fetchAllSellers"],
-    queryFn: fetchAllSellers,
+const addSeller = async (seller) => {
+  const res = await fetch(`/api/v1/sellers/create`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getCookie("session")}`,
+    },
+    body: JSON.stringify(seller),
   });
+  return res.json();
+};
+
+export default function Sellers() {
+  const queryClient = useQueryClient();
+  const { data, status } = useQuery({ queryKey: ["fetchAllSellers"], queryFn: fetchAllSellers });
+
+  const addMutation = useMutation({
+    mutationFn: addSeller,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["fetchAllSellers"] }),
+  });
+
+  const [sellerForm, setSellerForm] = useState({ name: "", contact: "", email: "", address: "" });
+  const [isDialogOpen, setDialogOpen] = useState(false);
+
+  // Reset form when opening dialog
+  useEffect(() => {
+    console.log("Dialog state changed:", isDialogOpen);
+    if (isDialogOpen) {
+      setSellerForm({ name: "", contact: "", email: "", address: "" });
+    }
+  }, [isDialogOpen,data]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await addMutation.mutateAsync(sellerForm);
+      setDialogOpen(false); // Close dialog after successful mutation
+    } catch (error) {
+      console.error("Failed to add seller:", error);
+    }
+  };
 
   const columns = useMemo(
     () => [
       { header: "Seller Name", accessorKey: "name" },
-      { header: "Contact Name", accessorKey: "contactName" },
-      {
-        header: "Actions",
-        accessorKey: "id",
-        cell: ({ getValue }) => (
-          <button
-            type="button"
-            className="rounded bg-white hover:bg-red-100 px-2.5 py-1.5 text-xs font-semibold text-red-600 hover:text-white shadow-xs ring-1 ring-inset ring-gray-300"
-            onClick={() => deleteSeller(getValue())}
-          >
-            Delete
-          </button>
-        ),
-      },
+      { header: "Contact", accessorKey: "contact" },
+      { header: "Email", accessorKey: "email" },
+      { header: "Address", accessorKey: "address" },
     ],
     []
   );
@@ -49,54 +70,78 @@ export default function Sellers() {
     data: data?.sellers || [],
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
   });
 
-  async function deleteSeller(id) {
-    await fetch(`/api/v1/sellers/${id}/delete`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${getCookie("session")}`,
-      },
-    });
-  }
-
   return (
-    <main className="flex-1">
-      <div className="relative max-w-4xl mx-auto md:px-8 xl:px-0">
-        <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">Sellers</h1>
-        <div className="py-4">
-          {status === "pending" && <h2>Loading data...</h2>}
-          {status === "error" && <h2 className="text-2xl font-bold">Error fetching data...</h2>}
-          {status === "success" && (
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  {table.getHeaderGroups().map((headerGroup) => (
-                    <tr key={headerGroup.id}>
-                      {headerGroup.headers.map((header) => (
-                        <th key={header.id} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                        </th>
-                      ))}
-                    </tr>
+    <main className="flex-1 max-w-4xl mx-auto">
+      <h1 className="text-3xl font-extrabold">Sellers</h1>
+      <Button className="mt-4" onClick={() => {
+        console.log(isDialogOpen)
+        setDialogOpen((prev) => {
+          console.log("Previous state:", prev);
+          return true;
+        });
+      }}>Add Seller</Button>
+
+<Dialog open={isDialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
+      {/* The backdrop */}
+      <DialogBackdrop className="fixed inset-0 bg-black/30" />
+
+      {/* Full-screen container to center the panel */}
+      <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+        {/* The actual dialog panel */}
+        <DialogPanel className="max-w-lg space-y-4 bg-white p-12 rounded-lg shadow-lg">
+          <DialogTitle className="font-bold text-lg">Update Seller Status</DialogTitle>
+          <p>Are you sure you want to update the status of {Sellers?.name}?</p>
+          <div className="flex gap-4">
+            <button
+              className="px-4 py-2 bg-gray-300 rounded"
+              onClick={() => setDialogOpen(false)}
+              
+            >
+              Cancel
+            </button>
+            <button
+              className="px-4 py-2 bg-red-500 text-white rounded"
+              onClick={handleSubmit}
+             
+            >
+              
+            </button>
+          </div>
+        </DialogPanel>
+      </div>
+    </Dialog>
+
+      <div className="py-4">
+        {status === "pending" && <h2>Loading...</h2>}
+        {status === "error" && <h2>Error loading data</h2>}
+        {status === "success" && (
+          <table className="w-full border-collapse border border-gray-300">
+            <thead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <th key={header.id} className="border p-2">
+                      {flexRender(header.column.columnDef.header, header.getContext())}
+                    </th>
                   ))}
-                </thead>
-                <tbody>
-                  {table.getRowModel().rows.map((row) => (
-                    <tr key={row.id} className="bg-white">
-                      {row.getVisibleCells().map((cell) => (
-                        <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </td>
-                      ))}
-                    </tr>
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr key={row.id} className="border">
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id} className="p-2 border">
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
                   ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </main>
   );

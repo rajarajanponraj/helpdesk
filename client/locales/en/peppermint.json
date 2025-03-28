@@ -99,6 +99,8 @@
   "vendors": "Vendors",
   "stock_scraps": "Stock Scraps",
   "service_records": "Service Records",
-  "service_registers": "Service Registers"
+  "service_registers": "Service Registers",
+  "Create New Seller":"Create New Seller",
+  "department":"Department"
 
 }

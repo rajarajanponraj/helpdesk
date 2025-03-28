@@ -8,57 +8,99 @@ export async function inventoryRoutes(fastify: FastifyInstance) {
     "/api/v1/sellers/create",
     { preHandler: requirePermission(["sellers::create"]) },
     async (request: FastifyRequest, reply: FastifyReply) => {
-      const seller = await prisma.seller.create({
-        data: request.body as any,
-      });
-      reply.send({ success: true, sellers:seller });
+      try {
+        const { name, contact, email, address } = request.body as any;
+  
+        if (!name) {
+          return reply.status(400).send({ success: false, message: "Name is required" });
+        }
+  
+        const seller = await prisma.seller.create({
+          data: { name, contact, email, address },
+          select: { id: true, name: true, contact: true, email: true, address: true }, // ✅ Fixed Selection
+        });
+  
+        reply.send({ success: true, seller });
+      } catch (error) {
+        reply.status(500).send({ success: false, message: "Error creating seller", error });
+      }
     }
   );
-
+  
   fastify.get(
     "/api/v1/sellers/all",
     { preHandler: requirePermission(["sellers::read"]) },
     async (_, reply: FastifyReply) => {
-      const sellers = await prisma.seller.findMany();
-      reply.send({ success: true, sellers });
+      try {
+        const sellers = await prisma.seller.findMany({
+          select: { id: true, name: true, contact: true, email: true, address: true }, // ✅ Fixed Selection
+        });
+        reply.send({ success: true, sellers });
+      } catch (error) {
+        reply.status(500).send({ success: false, message: "Error fetching sellers", error });
+      }
     }
   );
-
+  
   fastify.get(
     "/api/v1/sellers/:id",
     { preHandler: requirePermission(["sellers::read"]) },
     async (request: FastifyRequest, reply: FastifyReply) => {
-      const { id }: any = request.params;
-      const seller = await prisma.seller.findUnique({ where: { id } });
-      seller
-        ? reply.send({ success: true, seller })
-        : reply.status(404).send({ success: false, message: "Seller not found" });
+      try {
+        const { id }: any = request.params;
+  
+        const seller = await prisma.seller.findUnique({
+          where: { id },
+          select: { id: true, name: true, contact: true, email: true, address: true }, // ✅ Fixed Selection
+        });
+  
+        if (!seller) {
+          return reply.status(404).send({ success: false, message: "Seller not found" });
+        }
+  
+        reply.send({ success: true, seller });
+      } catch (error) {
+        reply.status(500).send({ success: false, message: "Error fetching seller", error });
+      }
     }
   );
-
+  
   fastify.put(
     "/api/v1/sellers/update/:id",
     { preHandler: requirePermission(["sellers::update"]) },
     async (request: FastifyRequest, reply: FastifyReply) => {
-      const { id }: any = request.params;
-      const seller = await prisma.seller.update({
-        where: { id },
-        data: request.body as any,
-      });
-      reply.send({ success: true, seller });
+      try {
+        const { id }: any = request.params;
+        const { name, contact, email, address } = request.body as any;
+  
+        const seller = await prisma.seller.update({
+          where: { id },
+          data: { name, contact, email, address },
+          select: { id: true, name: true, contact: true, email: true, address: true }, // ✅ Fixed Selection
+        });
+  
+        reply.send({ success: true, seller });
+      } catch (error) {
+        reply.status(500).send({ success: false, message: "Error updating seller", error });
+      }
     }
   );
-
+  
   fastify.delete(
     "/api/v1/sellers/delete/:id",
     { preHandler: requirePermission(["sellers::delete"]) },
     async (request: FastifyRequest, reply: FastifyReply) => {
-      const { id }: any = request.params;
-      await prisma.seller.delete({ where: { id } });
-      reply.send({ success: true, message: "Seller deleted" });
+      try {
+        const { id }: any = request.params;
+  
+        await prisma.seller.delete({ where: { id } });
+  
+        reply.send({ success: true, message: "Seller deleted successfully" });
+      } catch (error) {
+        reply.status(500).send({ success: false, message: "Error deleting seller", error });
+      }
     }
   );
-
   // Stocks
   fastify.post(
     "/api/v1/stocks/create",

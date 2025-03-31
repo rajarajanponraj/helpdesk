@@ -1,6 +1,7 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import { prisma } from "../prisma";
 import { requirePermission } from "../lib/roles";
+import { Prisma } from "@prisma/client";
 
 export async function inventoryRoutes(fastify: FastifyInstance) {
   // Sellers
@@ -157,6 +158,85 @@ export async function inventoryRoutes(fastify: FastifyInstance) {
     }
   );
 
+
+  fastify.post("/api/v1/departments/create", async (request, reply) => {
+    try {
+      const { name } = request.body as { name: string };
+      const department = await prisma.department.create({
+        data: { name },
+      });
+      reply.send({ success: true, department });
+    } catch (error) {
+      reply.status(500).send({ success: false, message: "Error creating department", error });
+    }
+  });
+
+  // Get all Departments
+  fastify.get("/api/v1/departments", async (_, reply) => {
+    const departments = await prisma.department.findMany({
+      include: { labs: true },
+    });
+    reply.send({ success: true, departments });
+  });
+
+  // Create Lab
+  fastify.post("/api/v1/labs/create", async (request, reply) => {
+    try {
+      const { name, location, departmentId } = request.body as {
+        name: string;
+        location?: string;
+        departmentId: string;
+      };
+
+      const lab = await prisma.lab.create({
+        data: {
+          name,
+          location,
+          departmentId,
+        },
+      });
+      reply.send({ success: true, lab });
+    } catch (error) {
+      reply.status(500).send({ success: false, message: "Error creating lab", error });
+    }
+  });
+
+  // Get all Labs
+  fastify.get("/api/v1/labs", async (_, reply) => {
+    const labs = await prisma.lab.findMany({
+      include: { department: true },
+    });
+    reply.send({ success: true, labs });
+  });
+
+  // Get Labs by Department
+  fastify.get("/api/v1/departments/:id/labs", async (request, reply) => {
+    const { id } = request.params as { id: string };
+    const labs = await prisma.lab.findMany({
+      where: { departmentId: id },
+    });
+    reply.send({ success: true, labs });
+  });
+
+  // Update Lab
+  fastify.put("/api/v1/labs/update/:id", async (request, reply) => {
+    const { id } = request.params as { id: string };
+    const { name, location } = request.body as { name?: string; location?: string };
+
+    const updatedLab = await prisma.lab.update({
+      where: { id },
+      data: { name, location },
+    });
+    reply.send({ success: true, lab: updatedLab });
+  });
+
+  // Delete Lab
+  fastify.delete("/api/v1/labs/delete/:id", async (request, reply) => {
+    const { id } = request.params as { id: string };
+    await prisma.lab.delete({ where: { id } });
+    reply.send({ success: true, message: "Lab deleted" });
+  });
+
   fastify.post("/api/v1/purchases/create", { preHandler: requirePermission(["purchases::create"]) }, async (request: FastifyRequest, reply: FastifyReply) => {
     const purchase = await prisma.purchase.create({ data: request.body as any });
     reply.send({ success: true, purchase });
@@ -186,14 +266,90 @@ export async function inventoryRoutes(fastify: FastifyInstance) {
   });
 
   // Vendors
-  fastify.post("/api/v1/vendors/create", { preHandler: requirePermission(["vendors::create"]) }, async (request: FastifyRequest, reply: FastifyReply) => {
-    const vendor = await prisma.vendor.create({ data: request.body as any });
-    reply.send({ success: true, vendor });
-  });
-  fastify.get("/api/v1/vendors/all", { preHandler: requirePermission(["vendors::read"]) }, async (_, reply: FastifyReply) => {
-    const vendors = await prisma.vendor.findMany();
-    reply.send({ success: true, vendors });
-  });
+  fastify.post(
+    "/api/v1/vendors/create",
+    { preHandler: requirePermission(["vendors::create"]) },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      
+        const vendor = await prisma.vendor.create({ data: request.body as any });
+        reply.send({ success: true, vendor });
+     
+    }
+  );
+
+  // Get All Vendors
+  fastify.get(
+    "/api/v1/vendors/all",
+    { preHandler: requirePermission(["vendors::read"]) },
+    async (_, reply: FastifyReply) => {
+      
+        const vendors = await prisma.vendor.findMany({
+          include: {
+            services: true,
+            serviceRecords: true,
+          },
+        });
+        reply.send({ success: true, vendors });
+    
+    }
+  );
+
+  // Get Single Vendor by ID
+  fastify.get(
+    "/api/v1/vendors/:id",
+    { preHandler: requirePermission(["vendors::read"]) },
+    async (request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
+     
+        const vendor = await prisma.vendor.findUnique({
+          where: { id: request.params.id },
+          include: {
+            services: true,
+            serviceRecords: true,
+          },
+        });
+        if (!vendor) {
+          return reply.status(404).send({ success: false, message: "Vendor not found" });
+        }
+        reply.send({ success: true, vendor });
+     
+    }
+  );
+
+  // Update Vendor
+  fastify.put(
+    "/api/v1/vendors/update/:id",
+    { preHandler: requirePermission(["vendors::update"]) },
+    async (
+      request: FastifyRequest<{ Params: { id: string }; Body: Prisma.VendorUpdateInput }>,
+      reply: FastifyReply
+    ) => {
+      try {
+        const updatedVendor = await prisma.vendor.update({
+          where: { id: request.params.id },
+          data: request.body, // Typed correctly as Prisma.VendorUpdateInput
+        });
+  
+        reply.send({ success: true, vendor: updatedVendor });
+      } catch (error) {
+        reply.status(500).send({ success: false, error: (error as Error).message });
+      }
+    }
+  );
+  
+
+  // Delete Vendor
+  fastify.delete(
+    "/api/v1/vendors/delete/:id",
+    { preHandler: requirePermission(["vendors::delete"]) },
+    async (request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
+      
+        await prisma.vendor.delete({
+          where: { id: request.params.id },
+        });
+        reply.send({ success: true, message: "Vendor deleted successfully" });
+      
+    }
+  );
 
   // Stock Scraps
   fastify.post("/api/v1/stock-scraps/scrap", { preHandler: requirePermission(["stock-scraps::scrap"]) }, async (request: FastifyRequest, reply: FastifyReply) => {

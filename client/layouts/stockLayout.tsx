@@ -80,7 +80,7 @@ export default function StockLayout({ children }: any) {
     {
       name: t("purchases"),
       href: "/stocks/purchases",
-      current: location.pathname === "/admin/webhooks",
+      current: location.pathname === "/stocks/purchases",
       icon: Webhook,
     },
     {

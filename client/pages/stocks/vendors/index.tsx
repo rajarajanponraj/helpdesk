@@ -6,7 +6,8 @@ import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-tabl
 
 // Fetch all vendors
 const fetchAllVendors = async () => {
-  const res = await fetch(`/api/v1/vendors`, {
+  console.log(getCookie("session"));
+  const res = await fetch(`/api/v1/vendors/all`, {
     headers: { Authorization: `Bearer ${getCookie("session")}` },
   });
   return res.json();

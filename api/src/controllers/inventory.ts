@@ -237,14 +237,97 @@ export async function inventoryRoutes(fastify: FastifyInstance) {
     reply.send({ success: true, message: "Lab deleted" });
   });
 
-  fastify.post("/api/v1/purchases/create", { preHandler: requirePermission(["purchases::create"]) }, async (request: FastifyRequest, reply: FastifyReply) => {
-    const purchase = await prisma.purchase.create({ data: request.body as any });
-    reply.send({ success: true, purchase });
-  });
-  fastify.get("/api/v1/purchases/all", { preHandler: requirePermission(["purchases::read"]) }, async (_, reply: FastifyReply) => {
-    const purchases = await prisma.purchase.findMany();
-    reply.send({ success: true, purchases });
-  });
+  fastify.post(
+    "/api/v1/purchases/create",
+    { preHandler: requirePermission(["purchases::create"]) },
+    async (request: FastifyRequest<{ Body: Prisma.PurchaseCreateInput }>, reply: FastifyReply) => {
+      try {
+        const purchase = await prisma.purchase.create({ data: request.body });
+        reply.send({ success: true, purchase });
+      } catch (error) {
+        reply.status(500).send({ success: false, error: (error as Error).message });
+      }
+    }
+  );
+
+  // 📌 Get all Purchases   
+  fastify.get(
+    "/api/v1/purchases/all",
+    { preHandler: requirePermission(["purchases::read"]) },
+    async (_, reply: FastifyReply) => {
+      try {
+        const purchases = await prisma.purchase.findMany({
+          include: {
+            stock: true,
+            seller: true,
+          },
+        });
+        reply.send({ success: true, purchases });
+      } catch (error) {
+        reply.status(500).send({ success: false, error: (error as Error).message });
+      }
+    }
+  );
+
+  // 📌 Get a Specific Purchase by ID
+  fastify.get(
+    "/api/v1/purchases/:id",
+    { preHandler: requirePermission(["purchases::read"]) },
+    async (request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
+      try {
+        const purchase = await prisma.purchase.findUnique({
+          where: { id: request.params.id },
+          include: {
+            stock: true,
+            seller: true,
+          },
+        });
+
+        if (!purchase) {
+          return reply.status(404).send({ success: false, message: "Purchase not found" });
+        }
+
+        reply.send({ success: true, purchase });
+      } catch (error) {
+        reply.status(500).send({ success: false, error: (error as Error).message });
+      }
+    }
+  );
+
+  // 📌 Update a Purchase
+  fastify.put(
+    "/api/v1/purchases/update/:id",
+    { preHandler: requirePermission(["purchases::update"]) },
+    async (
+      request: FastifyRequest<{ Params: { id: string }; Body: Prisma.PurchaseUpdateInput }>,
+      reply: FastifyReply
+    ) => {
+      try {
+        const updatedPurchase = await prisma.purchase.update({
+          where: { id: request.params.id },
+          data: request.body,
+        });
+
+        reply.send({ success: true, purchase: updatedPurchase });
+      } catch (error) {
+        reply.status(500).send({ success: false, error: (error as Error).message });
+      }
+    }
+  );
+
+  // 📌 Delete a Purchase
+  fastify.delete(
+    "/api/v1/purchases/delete/:id",
+    { preHandler: requirePermission(["purchases::delete"]) },
+    async (request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
+      try {
+        await prisma.purchase.delete({ where: { id: request.params.id } });
+        reply.send({ success: true, message: "Purchase deleted successfully" });
+      } catch (error) {
+        reply.status(500).send({ success: false, error: (error as Error).message });
+      }
+    }
+  );
 
   // Stock Movements
   fastify.post("/api/v1/movements/create", { preHandler: requirePermission(["movements::create"]) }, async (request: FastifyRequest, reply: FastifyReply) => {
@@ -269,11 +352,40 @@ export async function inventoryRoutes(fastify: FastifyInstance) {
   fastify.post(
     "/api/v1/vendors/create",
     { preHandler: requirePermission(["vendors::create"]) },
-    async (request: FastifyRequest, reply: FastifyReply) => {
-      
-        const vendor = await prisma.vendor.create({ data: request.body as any });
+    async (request: FastifyRequest<{ Body: Prisma.VendorUncheckedCreateInput }>, reply: FastifyReply) => {
+      try {
+        const { name, contact, address, services, serviceRecords } = request.body;
+
+        if (!name) {
+          return reply.status(400).send({ success: false, message: "Vendor name is required." });
+        }
+
+        const vendor = await prisma.vendor.create({
+          data: {
+            name,
+            contact,
+            address,
+            services: services
+              ? {
+                  create: (services as any).map((service: any) => ({
+                    ...service,
+                  })),
+                }
+              : undefined,
+            serviceRecords: serviceRecords
+              ? {
+                  create: (serviceRecords as any).map((record: any) => ({
+                    ...record,
+                  })),
+                }
+              : undefined,
+          },
+        });
+
         reply.send({ success: true, vendor });
-     
+      } catch (error) {
+        reply.status(500).send({ success: false, error: (error as Error).message });
+      }
     }
   );
 

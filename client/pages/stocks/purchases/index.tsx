@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
 
-const fetchAllStocks = async () => {
-  const res = await fetch(`/api/v1/stocks/all`, {
+const fetchAllPurchases = async () => {
+  const res = await fetch(`/api/v1/purchases/all`, {
     headers: {
       Authorization: `Bearer ${getCookie("session")}`,
     },
@@ -13,43 +13,48 @@ const fetchAllStocks = async () => {
   return res.json();
 };
 
-export default function StockManagement() {
+export default function Purchases() {
   const router = useRouter();
-  const { data, status } = useQuery({ queryKey: ["fetchAllStocks"], queryFn: fetchAllStocks });
+  const { data, status } = useQuery({ queryKey: ["fetchAllPurchases"], queryFn: fetchAllPurchases });
 
   const columns = useMemo(
     () => [
-      { header: "Stock Name", accessorKey: "name" },
-      { header: "Category", accessorKey: "category" },
-      { header: "Quantity", accessorKey: "quantity" },
-      { header: "Unit Price", accessorKey: "unitPrice" },
+      { header: "Stock Name", accessorKey: "stock.name" },
       { header: "Seller", accessorKey: "seller.name" },
+      { header: "Quantity", accessorKey: "quantity" },
+      { header: "Price", accessorKey: "price" },
+      { header: "Purchase Date", accessorKey: "purchaseDate" },
+      { header: "Proof Type", accessorKey: "proofType" },
+      { header: "Proof File", accessorKey: "proofFile", cell: ({ row }) => (
+          <a href={row.original.proofFile} target="_blank" className="text-blue-500 underline">
+            View File
+          </a>
+        )
+      },
     ],
     []
   );
 
   const table = useReactTable({
-    data: data?.stocks || [],
+    data: data?.purchases || [],
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
 
   return (
-    <main className="flex-1 max-w-5xl mx-auto">
-      <h1 className="text-3xl font-extrabold">Stock Management</h1>
-      
+    <main className="flex-1 max-w-6xl mx-auto p-4">
+      <h1 className="text-3xl font-extrabold">Purchases</h1>
       <button
-        onClick={() => router.push("/stocks/stock/new")}
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md"
+        onClick={() => router.push("/stocks/purchases/new")}
+        className="mt-4 px-4 py-2 bg-green-600 text-white rounded-md"
       >
-        Add New Stock
+        Add Purchase
       </button>
-
       <div className="py-4">
         {status === "pending" && <h2>Loading...</h2>}
         {status === "error" && <h2>Error loading data</h2>}
         {status === "success" && (
-          <table className="w-full border-collapse border border-gray-300">
+          <table className="w-full border-collapse border border-gray-300 mt-4">
             <thead>
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>

@@ -17,6 +17,7 @@ export default function CreatePurchase() {
           method: "GET",
           headers: { Authorization: `Bearer ${getCookie("session")}` },
         });
+        console.log(getCookie("session"));
         const data = await response.json();
         if (data.success && Array.isArray(data.sellers)) {
             setSellers(data.sellers);
@@ -34,20 +35,22 @@ export default function CreatePurchase() {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const formData = new FormData();
-      formData.append("stockId", data.stockId);
-      formData.append("sellerId", data.sellerId);
-      formData.append("quantity", data.quantity);
-      formData.append("price", data.price);
-      formData.append("proofType", data.proofType);
-      if (data.proofFile[0]) {
-        formData.append("proofFile", data.proofFile[0]); // Append file correctly
-      }
-
+      const payload = {
+        stockId: data.stockId || null,
+        sellerId: data.sellerId,
+        quantity: Number(data.quantity), // Ensure numeric values
+        price: Number(data.price),
+        proofType: data.proofType,
+        proofFile: data.proofFile[0] || null,
+      };
+  console.log(payload);
       const response = await fetch("/api/v1/purchases/create", {
         method: "POST",
-        headers: { Authorization: `Bearer ${getCookie("session")}` },
-        body: formData,
+        headers: {
+          "Content-Type": "application/json", // Set JSON content type
+          Authorization: `Bearer ${getCookie("session")}`,
+        },
+        body: JSON.stringify(payload), // Send JSON instead of FormData
       });
 
       const result = await response.json();
@@ -58,6 +61,7 @@ export default function CreatePurchase() {
         alert("Failed to create purchase");
       }
     } catch (error) {
+      console.log(error)
       alert("Error: " + error.message);
     } finally {
       setLoading(false);

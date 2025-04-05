@@ -411,173 +411,182 @@ model emailTemplate {
 }
 
 model Purchase {
-  id           String   @id @default(uuid())
-  stockId      String?
-  stock        Stock?   @relation(fields: [stockId], references: [id])
-  sellerId     String
-  seller       Seller   @relation(fields: [sellerId], references: [id])
+  id      String @id @default(uuid())
+  stockId String
+  stock   Stock  @relation(fields: [stockId], references: [id])
+
+  sellerId String
+  seller   Seller @relation(fields: [sellerId], references: [id])
 
   quantity     Int
   price        Float
   purchaseDate DateTime @default(now())
 
-  proofType    String  
-  proofFile    String?  
+  proofType String
+  proofFile String?
 }
 
 model Seller {
-  id          String   @id @default(uuid())
-  name        String   @unique
-  contact     String?
-  email       String?  @unique
-  address     String?
-  purchases   Purchase[]
+  id        String     @id @default(uuid())
+  name      String     @unique
+  contact   String?
+  email     String?    @unique
+  address   String?
+  purchases Purchase[]
 }
 
 model Stock {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
   category    String
   description String?
-  quantity    Int      @default(0)
   unitPrice   Float
 
-  purchases   Purchase[] // No direct seller reference anymore
-  movements   StockMovement[]
-  labStocks   LabStock[]
-  serviceRegisters ServiceRegister[]
-  stockTransfers StockTransfer[]
-  stockScraps StockScrap[]
+  purchases     Purchase[]
+  labStocks     LabStock[]
+  movements     StockMovement[]
+  scraps        StockScrap[]
+  StockTransfer StockTransfer[]
 }
-
-
-model StockMovement {
-  id          String  @id @default(uuid())
-  stockId     String
-  stock       Stock   @relation(fields: [stockId], references: [id])
-
-  fromLabId   String?  
-  fromLab     Lab?    @relation(fields: [fromLabId], references: [id], name: "StockMovementFromLab")
-
-  toLabId     String  
-  toLab       Lab     @relation(fields: [toLabId], references: [id], name: "StockMovementToLab")
-
-  quantity    Int
-  movedAt     DateTime @default(now())
-}
-
-
-
 
 model LabStock {
-  id          String @id @default(uuid())
-  stockId     String
-  stock       Stock  @relation(fields: [stockId], references: [id])
-  labId       String
-  lab         Lab    @relation(fields: [labId], references: [id])
-  quantity    Int
-  allocatedAt DateTime @default(now())
-  
-  // Component Tracking
-  serialNumber String?  // Optional, for individual tracking
-  condition    String   // e.g., New, Good, Needs Repair
-}
+  id      String @id @default(uuid())
+  stockId String
+  stock   Stock  @relation(fields: [stockId], references: [id])
 
-model Vendor {
-  id          String  @id @default(uuid())
-  name        String  // Vendor Name
-  contact     String? // Contact Info
-  address     String? 
-  services    ServiceRegister[] // Services handled by the vendor
-  serviceRecords ServiceRecord[] // Repair logs by the vendor
-}
+  labId String
+  lab   Lab    @relation(fields: [labId], references: [id])
 
-model StockScrap {
-  id          String @id @default(uuid())
-  stockId     String
-  stock       Stock  @relation(fields: [stockId], references: [id])
-  labId       String?
-  lab         Lab?   @relation(fields: [labId], references: [id])
-  quantity    Int
-  reason      String  // e.g., Damaged, Obsolete
-  scrappedAt  DateTime @default(now())
-}
+  quantity     Int
+  allocatedAt  DateTime @default(now())
+  serialNumber String?
+  condition    String // New, Good, Needs Repair
 
-
-
-model ServiceRecord {
-  id          String   @id @default(uuid())
-  serviceId   String
-  service     ServiceRegister @relation(fields: [serviceId], references: [id])
-  repairedAt  DateTime?
-  repairNotes String?
-  repairedBy  String?  
-  condition   StockCondition // NEW, GOOD, NEEDS_REPAIR
-  status      ServiceStatus  // FIXED, REPLACED, DISCARDED
-  reason      ServiceReason? // DAMAGED, OBSOLETE
-  vendorId    String?  
-  vendor      Vendor?  @relation(fields: [vendorId], references: [id])
-}
-
-
-model ServiceRegister {
-  id          String @id @default(uuid())
-  stockId     String
-  stock       Stock  @relation(fields: [stockId], references: [id])
-  labId       String
-  lab         Lab    @relation(fields: [labId], references: [id])
-  quantity    Int
-  issue       String  // Issue description
-  sentAt      DateTime @default(now())
-  status      String  // e.g., Pending, In Service, Returned
-  vendorId    String?  // Vendor handling the repair
-  vendor      Vendor?  @relation(fields: [vendorId], references: [id])
-  serviceRecords ServiceRecord[]
-}
-
-model Department {
-  id    String @id @default(uuid())
-  name  String @unique
-  labs  Lab[] 
+  serviceEntries ServiceRegister[]
 }
 
 model Lab {
-  id         String   @id @default(uuid())
-  name       String
-  location   String?
-  createdAt  DateTime @default(now())
-  department  Department @relation(fields: [departmentId], references: [id])
+  id        String   @id @default(uuid())
+  name      String
+  location  String?
+  createdAt DateTime @default(now())
+
   departmentId String
+  department   Department @relation(fields: [departmentId], references: [id])
+
+  stockEntries       LabStock[]
   stockMovementsFrom StockMovement[] @relation("StockMovementFromLab")
   stockMovementsTo   StockMovement[] @relation("StockMovementToLab")
-
   stockTransfersFrom StockTransfer[] @relation("StockTransferFromLab")
   stockTransfersTo   StockTransfer[] @relation("StockTransferToLab")
-
-  stockEntries  LabStock[]
-  stockScraps   StockScrap[]
-  serviceRecords ServiceRegister[]
+  stockScraps        StockScrap[]
 }
 
+model Department {
+  id   String @id @default(uuid())
+  name String @unique
+  labs Lab[]
+}
 
+model StockMovement {
+  id      String @id @default(uuid())
+  stockId String
+  stock   Stock  @relation(fields: [stockId], references: [id])
+
+  fromLabId String?
+  fromLab   Lab?    @relation(fields: [fromLabId], references: [id], name: "StockMovementFromLab")
+
+  toLabId String
+  toLab   Lab    @relation(fields: [toLabId], references: [id], name: "StockMovementToLab")
+
+  quantity Int
+  movedAt  DateTime @default(now())
+}
 
 model StockTransfer {
-  id          String  @id @default(uuid())
-  stockId     String
-  stock       Stock   @relation(fields: [stockId], references: [id])
+  id      String @id @default(uuid())
+  stockId String
+  stock   Stock  @relation(fields: [stockId], references: [id])
 
-  fromLabId   String  
-  fromLab     Lab     @relation(fields: [fromLabId], references: [id], name: "StockTransferFromLab")
+  fromLabId String
+  fromLab   Lab    @relation(fields: [fromLabId], references: [id], name: "StockTransferFromLab")
 
-  toLabId     String  
-  toLab       Lab     @relation(fields: [toLabId], references: [id], name: "StockTransferToLab")
+  toLabId String
+  toLab   Lab    @relation(fields: [toLabId], references: [id], name: "StockTransferToLab")
 
-  quantity    Int
+  quantity      Int
   transferredAt DateTime @default(now())
 }
 
+model StockScrap {
+  id      String @id @default(uuid())
+  stockId String
+  stock   Stock  @relation(fields: [stockId], references: [id])
 
+  labId String
+  lab   Lab    @relation(fields: [labId], references: [id])
 
+  quantity   Int
+  reason     String // Damaged, Obsolete
+  scrappedAt DateTime @default(now())
+}
+
+model ServiceRegister {
+  id         String   @id @default(uuid())
+  labStockId String
+  labStock   LabStock @relation(fields: [labStockId], references: [id])
+
+  issue  String
+  sentAt DateTime @default(now())
+  status String // Pending, In Service, Returned
+
+  vendorId String?
+  vendor   Vendor? @relation(fields: [vendorId], references: [id])
+
+  serviceRecords ServiceRecord[]
+}
+
+model ServiceRecord {
+  id        String          @id @default(uuid())
+  serviceId String
+  service   ServiceRegister @relation(fields: [serviceId], references: [id])
+
+  repairedAt  DateTime?
+  repairNotes String?
+  repairedBy  String?
+  condition   StockCondition // ENUM
+  status      ServiceStatus // ENUM
+  reason      ServiceReason? // ENUM
+  vendorId    String?
+  vendor      Vendor?        @relation(fields: [vendorId], references: [id])
+}
+
+model Vendor {
+  id      String  @id @default(uuid())
+  name    String
+  contact String?
+  address String?
+
+  serviceEntries ServiceRegister[]
+  serviceRecords ServiceRecord[]
+}
+
+enum StockCondition {
+  NEW
+  GOOD
+  NEEDS_REPAIR
+}
+
+enum ServiceStatus {
+  FIXED
+  REPLACED
+  DISCARDED
+}
+
+enum ServiceReason {
+  DAMAGED
+  OBSOLETE
+}
 
 enum Hook {
   ticket_created
@@ -607,21 +616,4 @@ enum Template {
   ticket_status_changed
   ticket_assigned
   ticket_comment
-}
-
-enum StockCondition {
-  new
-  good
-  need_repair
-}
-
-enum ServiceStatus {
-  fixed
-  replaced
-  discarded
-}
-
-enum ServiceReason {
-  damaged
-  obsolete
 }

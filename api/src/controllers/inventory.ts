@@ -354,7 +354,7 @@ export async function inventoryRoutes(fastify: FastifyInstance) {
     { preHandler: requirePermission(["vendors::create"]) },
     async (request: FastifyRequest<{ Body: Prisma.VendorUncheckedCreateInput }>, reply: FastifyReply) => {
       try {
-        const { name, contact, address, services, serviceRecords } = request.body;
+        const { name, contact, address,  serviceRecords } = request.body;
 
         if (!name) {
           return reply.status(400).send({ success: false, message: "Vendor name is required." });
@@ -365,13 +365,7 @@ export async function inventoryRoutes(fastify: FastifyInstance) {
             name,
             contact,
             address,
-            services: services
-              ? {
-                  create: (services as any).map((service: any) => ({
-                    ...service,
-                  })),
-                }
-              : undefined,
+           
             serviceRecords: serviceRecords
               ? {
                   create: (serviceRecords as any).map((record: any) => ({
@@ -397,7 +391,6 @@ export async function inventoryRoutes(fastify: FastifyInstance) {
       
         const vendors = await prisma.vendor.findMany({
           include: {
-            services: true,
             serviceRecords: true,
           },
         });
@@ -415,7 +408,7 @@ export async function inventoryRoutes(fastify: FastifyInstance) {
         const vendor = await prisma.vendor.findUnique({
           where: { id: request.params.id },
           include: {
-            services: true,
+             
             serviceRecords: true,
           },
         });

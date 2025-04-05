@@ -36,7 +36,7 @@ export default function CreateStock() {
   useEffect(() => {
     setCategories(computerCategories);
   }, []);
-
+console.log(getCookie("session"))
   const onSubmit = async (data) => {
     setLoading(true);
     try {
@@ -47,7 +47,7 @@ export default function CreateStock() {
         quantity: Number(data.quantity),
         unitPrice: Number(data.unitPrice),
       };
-      
+      console.log(payload)
       const response = await fetch("/api/v1/stocks/create", {
         method: "POST",
         headers: {
@@ -60,7 +60,7 @@ export default function CreateStock() {
       const result = await response.json();
       if (result.success) {
         reset();
-        router.push("/stocks");
+        router.push("/stocks/stock");
       } else {
         alert("Failed to create stock");
       }
@@ -87,7 +87,7 @@ export default function CreateStock() {
           <option value="">Select Category</option>
           {categories.length > 0 &&
             categories.map((category) => (
-              <option key={category.id} value={category.id}>
+              <option key={category.id} value={category.name}>
                 {category.name}
               </option>
             ))}

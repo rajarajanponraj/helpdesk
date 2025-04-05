@@ -36,7 +36,7 @@ export default function CreatePurchase() {
     setLoading(true);
     try {
       const payload = {
-        stockId: data.stockId || null,
+        // stockId: data.stockId || null,
         sellerId: data.sellerId,
         quantity: Number(data.quantity), // Ensure numeric values
         price: Number(data.price),

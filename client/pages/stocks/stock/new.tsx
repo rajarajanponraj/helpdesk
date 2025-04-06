@@ -38,13 +38,13 @@ export default function CreateStock() {
   }, []);
 console.log(getCookie("session"))
   const onSubmit = async (data) => {
+    console.log(data)
     setLoading(true);
     try {
       const payload = {
         name: data.name,
-        categoryId: data.categoryId,
+        category: data.category,
         description: data.description || "",
-        quantity: Number(data.quantity),
         unitPrice: Number(data.unitPrice),
       };
       console.log(payload)
@@ -83,7 +83,7 @@ console.log(getCookie("session"))
           className="w-full p-2 border rounded"
         />
 
-        <select {...register("categoryId", { required: true })} className="w-full p-2 border rounded">
+        <select {...register("category", { required: true })} className="w-full p-2 border rounded">
           <option value="">Select Category</option>
           {categories.length > 0 &&
             categories.map((category) => (
@@ -99,12 +99,6 @@ console.log(getCookie("session"))
           className="w-full p-2 border rounded"
         ></textarea>
 
-        <input
-          type="number"
-          placeholder="Quantity"
-          {...register("quantity", { required: true })}
-          className="w-full p-2 border rounded"
-        />
         <input
           type="number"
           step="0.01"

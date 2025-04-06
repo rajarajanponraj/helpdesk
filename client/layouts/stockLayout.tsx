@@ -11,6 +11,7 @@ import {
   ContactIcon,
   FileText,
   KeyRound,
+  LayoutDashboard,
   Mail,
   Mailbox,
   MoveLeft,
@@ -46,6 +47,12 @@ export default function StockLayout({ children }: any) {
       href: "/",
       current: null,
       icon: MoveLeft,
+    },
+    {
+      name: t("dashboard"),
+      href: "/stocks/",
+      current: location.pathname === "/stocks/",
+      icon: LayoutDashboard,
     },
     {
       name: t("sellers"),

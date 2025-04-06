@@ -11,6 +11,7 @@ import { checkToken } from "./lib/jwt";
 import { prisma } from "./prisma";
 import { registerRoutes } from "./routes";
 
+
 // Ensure the directory exists
 const logFilePath = "./logs.log"; // Update this path to a writable location
 
@@ -20,9 +21,11 @@ const logStream = fs.createWriteStream(logFilePath, { flags: "a" });
 // Initialize Fastify with logger
 const server: FastifyInstance = Fastify({
   logger: {
-    stream: logStream, // Use the writable stream
+    
+    stream: logStream,
+     // Use the writable stream
   },
-  disableRequestLogging: true,
+  disableRequestLogging: false,
   trustProxy: true,
 });
 server.register(cors, {

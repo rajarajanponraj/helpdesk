@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { getCookie } from "cookies-next";
+import { toast } from "@/shadcn/hooks/use-toast";
 
 export default function CreateStock() {
   const router = useRouter();
@@ -59,6 +60,11 @@ console.log(getCookie("session"))
 
       const result = await response.json();
       if (result.success) {
+         toast({
+                    variant: "default",
+                    title: "Success",
+                    description: "Stock created successfully",
+                  });
         reset();
         router.push("/stocks/stock");
       } else {

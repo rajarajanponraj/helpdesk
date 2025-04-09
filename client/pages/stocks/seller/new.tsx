@@ -2,6 +2,7 @@ import { getCookie } from "cookies-next";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import { toast } from "@/shadcn/hooks/use-toast";
 
 const addSeller = async (seller: any) => {
   const res = await fetch(`/api/v1/sellers/create`, {
@@ -22,6 +23,11 @@ export default function CreateSeller() {
   const addMutation = useMutation({
     mutationFn: addSeller,
     onSuccess: () => {
+       toast({
+                  variant: "default",
+                  title: "Success",
+                  description: "Seller created successfully",
+                });
       router.push("/stocks/seller");
     },
   });

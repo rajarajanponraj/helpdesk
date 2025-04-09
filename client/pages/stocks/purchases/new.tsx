@@ -2,6 +2,7 @@ import { getCookie } from "cookies-next";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { toast } from "@/shadcn/hooks/use-toast";
 
 export default function AddPurchase() {
   const router = useRouter();
@@ -12,7 +13,7 @@ console.log(getCookie("session"))
     price: "",
     sellerId: "",
     proofType: "",
-    proofFile: null,
+    proofFile: "",
   });
 
   const { data: stocks } = useQuery({
@@ -34,32 +35,33 @@ console.log(getCookie("session"))
 
   const { mutate, isPending } = useMutation({
     mutationFn: async () => {
+      const payload = {
+        stockId: form.stockId,
+        quantity:  parseInt(form.quantity),
+        price: parseFloat(form.price),
+        sellerId: form.sellerId,
+        proofType: form.proofType,
+        proofFile: form.proofFile
+      };
+    console.log(JSON.stringify(payload))
       const res = await fetch(`/api/v1/purchases/create`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${getCookie("session")}`,
+          "Content-Type": "application/json", // ✅ Don't set 'Content-Type', browser will do it
         },
-        body: JSON.stringify({
-          stockId: form.stockId,
-          quantity: Number(parseInt(form.quantity)),
-          price: Number(parseFloat(form.price)),
-          sellerId: form.sellerId,
-          proofType: form.proofType,
-          proofFile: form.proofFile,
-        }),
+        body: JSON.stringify(payload),
       });
-console.log( JSON.stringify({
-  stockId: form.stockId,
-  quantity: Number(parseInt(form.quantity)),
-  price: Number(parseFloat(form.price)),
-  sellerId: form.sellerId,
-  proofType: form.proofType,
-  proofFile: form.proofFile,
-}))
+    
       if (!res.ok) throw new Error("Failed to add purchase");
       return res.json();
     },
     onSuccess: () => {
+       toast({
+                  variant: "default",
+                  title: "Success",
+                  description: "Purchase created successfully",
+                });
       router.push("/stocks/purchases");
     },
   });

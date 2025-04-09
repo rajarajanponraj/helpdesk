@@ -92,8 +92,8 @@ export default function StockLayout({ children }: any) {
     },
     {
       name: t("lab_stocks"),
-      href: "/stocks/lab-stocks",
-      current: location.pathname === "/admin/smtp",
+      href: "/stocks/labstocks",
+      current: location.pathname === "/stocks/labstocks",
       icon: Mailbox,
     },
     {

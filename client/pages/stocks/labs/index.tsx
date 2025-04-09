@@ -3,6 +3,7 @@ import React, { useMemo, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table";
+import { toast } from "@/shadcn/hooks/use-toast";
 
 // Fetch all labs
 const fetchAllLabs = async () => {
@@ -30,6 +31,11 @@ const createLab = async (lab) => {
     },
     body: JSON.stringify(lab),
   });
+   toast({
+              variant: "default",
+              title: "Success",
+              description: "Lab created successfully",
+            });
   return res.json();
 };
 
@@ -39,6 +45,11 @@ const deleteLab = async (id) => {
     method: "DELETE",
     headers: { Authorization: `Bearer ${getCookie("session")}` },
   });
+   toast({
+              variant: "default",
+              title: "Success",
+              description: "Lab deleted successfully",
+            });
 };
 
 export default function Labs() {

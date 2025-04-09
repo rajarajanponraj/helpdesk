@@ -240,9 +240,27 @@ export async function inventoryRoutes(fastify: FastifyInstance) {
   fastify.post(
     "/api/v1/purchases/create",
     { preHandler: requirePermission(["purchases::create"]) },
-    async (request: FastifyRequest<{ Body: Prisma.PurchaseCreateInput }>, reply: FastifyReply) => {
+    async (request, reply) => {
       try {
-        const purchase = await prisma.purchase.create({ data: request.body });
+        const { stockId, quantity, price, sellerId, proofType,proofFile } = request.body as {
+          stockId: string;
+          quantity: number;
+          price: number;
+          sellerId: string;
+          proofType: string;
+          proofFile :string | null;
+        };
+    
+        const purchase = await prisma.purchase.create({
+          data: {
+            stockId,
+            quantity,
+            price,
+            sellerId,
+            proofType,
+            proofFile, // will be added later during edit
+          },
+        });
         reply.send({ success: true, purchase });
       } catch (error) {
         reply.status(500).send({ success: false, error: (error as Error).message });

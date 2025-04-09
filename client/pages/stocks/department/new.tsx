@@ -2,6 +2,7 @@ import { getCookie } from "cookies-next";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
+import { toast } from "@/shadcn/hooks/use-toast";
 
 const addDepartment = async (department) => {
   const res = await fetch(`/api/v1/departments/create`, {
@@ -22,6 +23,11 @@ export default function CreateDepartment() {
   const addMutation = useMutation({
     mutationFn: addDepartment,
     onSuccess: () => {
+       toast({
+                  variant: "default",
+                  title: "Success",
+                  description: "Department created successfully",
+                });
       router.push("/stocks/department");
     },
   });

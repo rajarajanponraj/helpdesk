@@ -36,6 +36,16 @@ server.register(cors, {
 });
 
 server.register(multer.contentParser);
+server.addHook("onRequest", async (request, reply) => {
+  server.log.info(`[REQUEST] ${request.method} ${request.url}`);
+});
+
+server.addHook("onSend", async (request, reply, payload) => {
+  server.log.info(`[RESPONSE] ${request.method} ${request.url} - ${reply.statusCode}`);
+  server.log.info(`[RESPONSE BODY] ${payload}`);
+  return payload;
+});
+
 
 registerRoutes(server);
 

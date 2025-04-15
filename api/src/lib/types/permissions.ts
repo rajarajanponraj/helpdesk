@@ -106,6 +106,10 @@ export type VendorPermission =
 
 export type LabStockPermission=
   | 'lab-stocks::read'
+  | 'lab-stocks::create'
+  | 'lab-stocks::update'
+  | 'lab-stocks::delete'
+  
   | 'lab-stocks::allocate';
 
 export type ServiceRecordsPermission =

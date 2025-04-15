@@ -357,14 +357,112 @@ export async function inventoryRoutes(fastify: FastifyInstance) {
     reply.send({ success: true, movements });
   });
 
-  fastify.post("/api/v1/lab-stocks/allocate", { preHandler: requirePermission(["lab-stocks::allocate"]) }, async (request: FastifyRequest, reply: FastifyReply) => {
-    const labStock = await prisma.labStock.create({ data: request.body as any });
-    reply.send({ success: true, labStock });
-  });
-  fastify.get("/api/v1/lab-stocks/all", { preHandler: requirePermission(["lab-stocks::read"]) }, async (_, reply: FastifyReply) => {
-    const labStocks = await prisma.labStock.findMany();
-    reply.send({ success: true, labStocks });
-  });
+  fastify.get(
+    "/api/v1/lab-stocks/all",
+    { preHandler: requirePermission(["lab-stocks::read"]) },
+    async (_, reply: FastifyReply) => {
+      try {
+        const labStocks = await prisma.labStock.findMany({
+          include: {
+            stock: true,
+            lab: true,
+            serviceEntries: true,
+          },
+        });
+        reply.send({ success: true, labStocks });
+      } catch (error) {
+        reply.status(500).send({ success: false, error: (error as Error).message });
+      }
+    }
+  );
+
+  // Get a single LabStock by ID
+  fastify.get(
+    "/api/v1/lab-stocks/:id",
+    { preHandler: requirePermission(["lab-stocks::read"]) },
+    async (request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
+      try {
+        const { id } = request.params;
+        const labStock = await prisma.labStock.findUnique({
+          where: { id },
+          include: {
+            stock: true,
+            lab: true,
+            serviceEntries: true,
+          },
+        });
+        if (!labStock) {
+          return reply.status(404).send({ success: false, message: "LabStock not found" });
+        }
+        reply.send({ success: true, labStock });
+      } catch (error) {
+        reply.status(500).send({ success: false, error: (error as Error).message });
+      }
+    }
+  );
+
+  // Create a new LabStock
+  fastify.post(
+    "/api/v1/lab-stocks/create",
+    { preHandler: requirePermission(["lab-stocks::create"]) },
+    async (request: FastifyRequest<{ Body: { stockId: string; labId: string; quantity: number; serialNumber?: string; condition: string } }>, reply: FastifyReply) => {
+      try {
+        const { stockId, labId, quantity, serialNumber, condition } = request.body;
+        const newLabStock = await prisma.labStock.create({
+          data: {
+            stockId,
+            labId,
+            quantity,
+            serialNumber,
+            condition,
+          },
+        });
+        reply.status(201).send({ success: true, labStock: newLabStock });
+      } catch (error) {
+        reply.status(500).send({ success: false, error: (error as Error).message });
+      }
+    }
+  );
+
+  // Update an existing LabStock
+  fastify.put(
+    "/api/v1/lab-stocks/:id",
+    { preHandler: requirePermission(["lab-stocks::update"]) },
+    async (request: FastifyRequest<{ Params: { id: string }; Body: { quantity?: number; serialNumber?: string; condition?: string } }>, reply: FastifyReply) => {
+      try {
+        const { id } = request.params;
+        const { quantity, serialNumber, condition } = request.body;
+        const updatedLabStock = await prisma.labStock.update({
+          where: { id },
+          data: {
+            quantity,
+            serialNumber,
+            condition,
+          },
+        });
+        reply.send({ success: true, labStock: updatedLabStock });
+      } catch (error) {
+        reply.status(500).send({ success: false, error: (error as Error).message });
+      }
+    }
+  );
+
+  // Delete a LabStock
+  fastify.delete(
+    "/api/v1/lab-stocks/:id",
+    { preHandler: requirePermission(["lab-stocks::delete"]) },
+    async (request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
+      try {
+        const { id } = request.params;
+        await prisma.labStock.delete({
+          where: { id },
+        });
+        reply.send({ success: true, message: "LabStock deleted successfully" });
+      } catch (error) {
+        reply.status(500).send({ success: false, error: (error as Error).message });
+      }
+    }
+  );
 
   // Vendors
   fastify.post(

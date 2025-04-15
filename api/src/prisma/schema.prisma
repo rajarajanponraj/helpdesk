@@ -421,7 +421,7 @@ model Purchase {
   quantity     Int
   price        Float
   purchaseDate DateTime @default(now())
-
+  createdDate  DateTime @default(now())
   proofType String
   proofFile String?
 }

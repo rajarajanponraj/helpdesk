@@ -14,6 +14,7 @@ console.log(getCookie("session"))
     sellerId: "",
     proofType: "",
     proofFile: "",
+    purchaseDate: new Date().toISOString().split("T")[0], // Default to today
   });
 
   const { data: stocks } = useQuery({
@@ -41,7 +42,8 @@ console.log(getCookie("session"))
         price: parseFloat(form.price),
         sellerId: form.sellerId,
         proofType: form.proofType,
-        proofFile: form.proofFile
+        proofFile: form.proofFile,
+        purchaseDate: form.purchaseDate, 
       };
     console.log(JSON.stringify(payload))
       const res = await fetch(`/api/v1/purchases/create`, {
@@ -143,6 +145,18 @@ console.log(getCookie("session"))
             className="w-full p-2 border"
           />
         </div>
+
+        <div>
+        <label className="block font-medium">Purchase Date</label>
+        <input
+          type="date"
+          name="purchaseDate"
+          required
+          value={form.purchaseDate}
+          onChange={handleChange}
+          className="w-full p-2 border"
+        />
+      </div>
 
         <div>
           <label className="block font-medium">Upload Proof</label>

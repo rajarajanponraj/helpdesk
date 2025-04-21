@@ -8,12 +8,11 @@ import { useEffect, useState } from "react";
 import Editor from "react-simple-code-editor";
 
 export default function EmailTemplates() {
-  const [template, setTemplate] = useState<any>();
-
+  const [template, setTemplate] = useState<string>("");
+  const [ticketDetails, setTicketDetails] = useState<any>(null); // State to store ticket details
   const router = useRouter();
 
-  const [code, setCode] = useState(`function add(a, b) {\n  return a + b;\n}`);
-
+  // Fetch the email template
   async function fetchTemplate() {
     await fetch(`/api/v1/ticket/template/${router.query.id}`, {
       method: "GET",
@@ -25,12 +24,29 @@ export default function EmailTemplates() {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          console.log(data);
           setTemplate(data.template[0].html);
         }
       });
   }
 
+  // Fetch the ticket details
+  async function fetchTicketDetails() {
+    await fetch(`/api/v1/tickets/${router.query.id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getCookie("session")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          setTicketDetails(data.ticket);
+        }
+      });
+  }
+
+  // Update the email template
   async function updateTemplate() {
     await fetch(`/api/v1/ticket/template/${router.query.id}`, {
       method: "PUT",
@@ -52,8 +68,20 @@ export default function EmailTemplates() {
       });
   }
 
+  // Replace placeholders with actual ticket details
+  const renderTemplate = (template: string) => {
+    if (!ticketDetails) return template;
+
+    return template
+      .replace(/{{userName}}/g, ticketDetails.userName || "N/A")
+      .replace(/{{ticketId}}/g, ticketDetails.id || "N/A")
+      .replace(/{{ticketContent}}/g, ticketDetails.content || "N/A")
+      .replace(/{{ticketStatus}}/g, ticketDetails.status || "N/A");
+  };
+
   useEffect(() => {
     fetchTemplate();
+    fetchTicketDetails();
   }, []);
 
   return (
@@ -86,7 +114,11 @@ export default function EmailTemplates() {
         </div>
         <div className="w-1/2">
           <span>
-            <div dangerouslySetInnerHTML={{ __html: template }} />
+            <div
+              dangerouslySetInnerHTML={{
+                __html: renderTemplate(template),
+              }}
+            />
           </span>
         </div>
       </div>

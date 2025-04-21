@@ -69,7 +69,70 @@ export type WebhookPermission =
   | "webhook::update"
   | "webhook::delete";
 
-export type Permission =
+  export type SellerPermission =
+  | "seller::create"
+  | "seller::read"
+  | "seller::update"
+  | "seller::delete"
+  | "seller::manage";
+
+export type StockPermission =
+  | "stock::create"
+  | "stock::read"
+  | "stock::update"
+  | "stock::delete"
+  | "stock::manage";
+
+export type PurchasePermission =
+  | "purchase::create"
+  | "purchase::read"
+  | "purchase::update"
+  | "purchase::delete"
+  | "purchase::manage";
+
+  export type MovementPermission =
+  | "movement::create"
+  | "movement::read"
+  | "movement::update"
+  | "movement::delete"
+  | "movement::manage";
+
+export type VendorPermission =
+  | "vendor::create"
+  | "vendor::read"
+  | "vendor::update"
+  | "vendor::delete"
+  | "vendor::manage";
+
+export type LabstockPermission =
+  | "labstock::create"
+  | "labstock::read"
+  | "labstock::update"
+  | "labstock::delete"
+  | "labstock::manage";
+
+  export type ServiceRecordPermission =
+  | "service_record::create"
+  | "service_record::read"
+  | "service_record::update"
+  | "service_record::delete"
+  | "service_record::manage";
+
+export type ServiceRegisterPermission =
+  | "service_register::create"
+  | "service_register::read"
+  | "service_register::update"
+  | "service_register::delete"
+  | "service_register::manage";
+
+export type ScrapRecordPermission =
+  | "scrap_record::create"
+  | "scrap_record::read"
+  | "scrap_record::update"
+  | "scrap_record::delete"
+  | "scrap_record::manage";
+
+  export type Permission =
   | IssuePermission
   | UserPermission
   | RolePermission
@@ -78,8 +141,17 @@ export type Permission =
   | KnowledgeBasePermission
   | SystemPermission
   | TimeTrackingPermission
+  | DocumentPermission
   | WebhookPermission
-  | DocumentPermission;
+  | SellerPermission
+  | StockPermission
+  | PurchasePermission
+  | MovementPermission
+  | VendorPermission
+  | LabstockPermission
+  | ServiceRecordPermission
+  | ServiceRegisterPermission
+  | ScrapRecordPermission;
 
 // Useful type for grouping permissions by category
 export const PermissionCategories = {
@@ -91,8 +163,18 @@ export const PermissionCategories = {
   KNOWLEDGE_BASE: "Knowledge Base",
   SYSTEM: "System Settings",
   TIME_TRACKING: "Time Tracking",
+  VIEW: "Views",
   WEBHOOK: "Webhook Management",
-  DOCUMENTATION: "Documentation",
+  DOCUMENT: "Document Management",
+  SELLER: "Seller Management",
+  STOCK: "Stock Management",
+  PURCHASE: "Purchase Management",
+  MOVEMENT: "Movement Management",
+  VENDOR: "Vendor Management",
+  LABSTOCK: "Labstock Management",
+  SERVICE_RECORD: "Service Record Management",
+  SERVICE_REGISTER: "Service Register Management",
+  SCRAP_RECORD: "Scrap Record Management",
 } as const;
 
 export type PermissionCategory =
@@ -158,26 +240,26 @@ export const PERMISSIONS_CONFIG = [
   //     "client::manage",
   //   ],
   // },
-  // {
-  //   category: "Knowledge Base",
-  //   permissions: [
-  //     "kb::create",
-  //     "kb::read",
-  //     "kb::update",
-  //     "kb::delete",
-  //     "kb::manage"
-  //   ]
-  // },
-  // {
-  //   category: "System Settings",
-  //   permissions: [
-  //     "settings::view",
-  //     "settings::manage",
-  //     "webhook::manage",
-  //     "integration::manage",
-  //     "email_template::manage",
-  //   ],
-  // },
+  {
+    category: "Knowledge Base",
+    permissions: [
+      "kb::create",
+      "kb::read",
+      "kb::update",
+      "kb::delete",
+      "kb::manage"
+    ]
+  },
+  {
+    category: "System Settings",
+    permissions: [
+      "settings::view",
+      "settings::manage",
+      "webhook::manage",
+      "integration::manage",
+      "email_template::manage",
+    ],
+  },
   // {
   //   category: "Time Tracking",
   //   permissions: [
@@ -204,6 +286,96 @@ export const PERMISSIONS_CONFIG = [
       "webhook::read",
       "webhook::update",
       "webhook::delete",
+    ],
+  },
+  {
+    category: PermissionCategories.SERVICE_REGISTER,
+    permissions: [
+      "service_register::create",
+      "service_register::read",
+      "service_register::update",
+      "service_register::delete",
+      "service_register::manage",
+    ],
+  },
+  {
+    category: PermissionCategories.SCRAP_RECORD,
+    permissions: [
+      "scrap_record::create",
+      "scrap_record::read",
+      "scrap_record::update",
+      "scrap_record::delete",
+      "scrap_record::manage",
+    ],
+  },
+  {
+    category: PermissionCategories.LABSTOCK,
+    permissions: [
+      "labstock::create",
+      "labstock::read",
+      "labstock::update",
+      "labstock::delete",
+      "labstock::manage",
+    ],
+  },
+  {
+    category: PermissionCategories.SERVICE_RECORD,
+    permissions: [
+      "service_record::create",
+      "service_record::read",
+      "service_record::update",
+      "service_record::delete",
+      "service_record::manage",
+    ],
+  },
+  {
+    category: PermissionCategories.MOVEMENT,
+    permissions: [
+      "movement::create",
+      "movement::read",
+      "movement::update",
+      "movement::delete",
+      "movement::manage",
+    ],
+  },
+  {
+    category: PermissionCategories.VENDOR,
+    permissions: [
+      "vendor::create",
+      "vendor::read",
+      "vendor::update",
+      "vendor::delete",
+      "vendor::manage",
+    ],
+  },
+  {
+    category: PermissionCategories.SELLER,
+    permissions: [
+      "seller::create",
+      "seller::read",
+      "seller::update",
+      "seller::delete",
+      "seller::manage",
+    ],
+  },
+  {
+    category: PermissionCategories.STOCK,
+    permissions: [
+      "stock::create",
+      "stock::read",
+      "stock::update",
+      "stock::delete",
+      "stock::manage",
+    ],
+  },
+  {
+    category: PermissionCategories.PURCHASE,
+    permissions: [
+      "purchase::create",
+      "purchase::read",
+      "purchase::update",
+      "purchase::delete",
+      "purchase::manage",
     ],
   },
 ] as const;
